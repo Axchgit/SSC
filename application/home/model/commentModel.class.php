@@ -24,10 +24,11 @@ class commentModel extends model{
 			$sql .= "`$k`=:$k,";
 		}
 		$sql = rtrim($sql,',');//去掉最右边的逗号
+		return $sql;
 		//通过预处理执行SQL
-		$this->db->execute($sql,$data,$flag);
-		//返回是否执行成功
-		return $flag;
+//		$this->db->execute($sql,$data,$flag);
+//		//返回是否执行成功
+//		return $flag;
 	}
 	/**
 	 * 留言列表

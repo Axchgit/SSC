@@ -14,22 +14,68 @@ class StudentInfoController extends platformController{
 		//实例化分页类
 		$page = new page($num,$GLOBALS['config'][PLATFORM]['pagesize']);
 		//取得所有留言数据
-		$data = $StudentInfoModel->getAll();
+		$data = $StudentInfoModel->getAll($page->getLimit());
 		//取得分页导航链接
 		$pageList = $page->getPageList();
 		//载入视图文件
 		require './application/admin/view/StudentInfo_list.html';
 	}
 	
-		function homeAction(){
+	function homeAction(){
 			require './application/admin/view/home.html';
 			//header("location:index.php?p=admin");
-		}
+	}
 		
-		function menuAction(){
+	function menuAction(){
 			require './application/admin/view/menu.html';
 			//header("location:index.php?p=admin");
+	}
+	function addViewAction(){
+			require './application/admin/view/StudentInfo_add.html';
+			//header("location:index.php?p=admin");
+	}
+		
+		
+	public function addAction(){
+		//判断是否是POST方式提交
+		if(empty($_POST)){
+			return false;
 		}
+		//实例化comment模型
+		$StudentInfoModel = new StudentInfoModel();
+		//调用insert方法
+		$pass = $StudentInfoModel->insert();
+		//判断是否执行成功
+		if($pass){
+				echo "<script>alert('操作成功');location.href='index.php?p=admin&c=StudentInfo&a=list';</script>";
+			}else{
+				echo "<script>alert('操作不成功');location.href='index.php?p=admin&c=StudentInfo&a=addView';</script>";
+			}
+//		if($pass){
+//			//成功时
+//			$this->jump('index.php?p=admin&c=StudentInfo&a=home','发表留言成功');
+//		}else{
+//			//失败时
+//			$this->jump('index.php?p=admin&c=StudentInfo&a=home','发表留言失败');
+//		}
+	}
+	
+	public function testAction(){
+	if(empty($_POST)){
+			return false;
+		}
+	
+	$StudentInfoModel = new StudentInfoModel();
+	$pass = $StudentInfoModel->insert();
+	if($pass){
+				echo $pass;
+			}else{
+				echo $pass;
+			}
+	}
+	
+	
+	
 	/**
 	 * 回复/修改
 	 */

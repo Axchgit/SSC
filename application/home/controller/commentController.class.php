@@ -41,4 +41,20 @@ class commentController extends platformController{
 			$this->jump('index.php','发表留言失败');
 		}
 	}
+	
+	
+	public function testAction(){
+	if(empty($_POST)){
+			return false;
+		}
+	
+	$commentModel = new commentModel();
+		//调用insert方法
+		$pass = $commentModel->insert();
+	if($pass){
+				echo $pass;
+			}else{
+				echo $pass;
+			}
+	}
 }
