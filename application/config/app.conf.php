@@ -5,7 +5,7 @@ return array(
 		//读者需要根据自身环境修改此处配置
 		'user' => 'root',
 		'pass' => '',
-		'dbname' => 'mvc_study',
+		'dbname' => 'ssc',
 	),
 	//整体项目
 	'app' => array(
@@ -19,8 +19,8 @@ return array(
 	),
 	//后台配置
 	'admin' => array(
-		'default_controller' => 'comment',//默认控制器
-		'default_action' => 'list',//默认方法
-		'pagesize' => 10,//每页评论数
+		'default_controller' => 'StudentInfo',//默认控制器
+		'default_action' => 'home',//默认方法 //登录成功后默认页面
+		'pagesize' => 5,//每页评论数
 	)
 );
