@@ -24,8 +24,8 @@
 		<ul class="list">
 			<li>作者：<?php echo $v['sname'] ?> 邮箱：<?php echo $v['sno']; ?> IP：<?php echo $v['tc']; ?>
 				<span class="right">
-				<a href="index.php?p=admin&c=comment&a=reply&id=<?php echo $v['id']; ?>">回复/修改</a>
-				<a href="index.php?p=admin&c=comment&a=delete&id=<?php echo $v['id']; ?>">删除</a>
+				<a href="index.php?p=admin&c=StudentInfo&a=updateView&sno=<?php echo $v['sno']; ?>">回复/修改</a>
+				<a href="index.php?p=admin&c=StudentInfo&a=delete&sno=<?php echo $v['sno']; ?>">删除</a>
 				</span>
 			</li>
 			<li><?php echo $v['ssex']; ?></li>

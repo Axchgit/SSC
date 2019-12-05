@@ -42,8 +42,12 @@ class commentController extends platformController{
 		}
 	}
 	
+	/**
+	 * 测试类
+	 */
 	
-	public function testAction(){
+	
+	public function testAction(){  
 	if(empty($_POST)){
 			return false;
 		}

@@ -22,7 +22,7 @@ class StudentInfoModel extends model{
 	  * 取得指定sno记录
 	  */
     public function getById(){
-	  $id = (int)$_GET['sno'];
+	  $sno = (int)$_GET['sno'];
 	  $sql = "select * from `student` where sno=$sno";
 	  $data = $this->db->fetchRow($sql);
 	  //处理换行符
@@ -45,16 +45,16 @@ class StudentInfoModel extends model{
 		$data['sno'] = $_POST['sno'];
 		$data['sname'] = $_POST['sname'];
 		if($_POST['ssex'] =='man'){
-		$data['ssex'] = '男';
-		
+		  $data['ssex'] = '男';		
 		}else{
-		$data['ssex'] = '女';
+		  $data['ssex'] = '女';
 		}
 		$data['sbirthday'] = $_POST['sbirthday'];
 		$data['speciality'] = $_POST['speciality'];
 		$data['sclass'] = $_POST['sclass'];
 		$data['tc'] = $_POST['tc'];
 	
+	    //sql语句拼接
 		$sql = "insert into `student` set ";
 		foreach($data as $k=>$v){
 			$sql .= "`$k`=:$k,";
@@ -76,20 +76,37 @@ class StudentInfoModel extends model{
 //		$this->filter(array('poster','mail','comment','reply'),'htmlspecialchars');
 //		$this->filter(array('comment','reply'),'nl2br');
 		//接收输入变量
-		$id = $_POST['sno'];
-		$data['poster'] = $_POST['poster'];
-		$data['mail'] = $_POST['mail'];
-		$data['comment'] = $_POST['comment'];
-		$data['reply'] = $_POST['reply'];
+		$data['sno'] = $_POST['sno'];
+		$data['sname'] = $_POST['sname'];
+		if($_POST['ssex'] =='man'){
+		  $data['ssex'] = '男';		
+		}else{
+		  $data['ssex'] = '女';
+		}
+		$data['sbirthday'] = $_POST['sbirthday'];
+		$data['speciality'] = $_POST['speciality'];
+		$data['sclass'] = $_POST['sclass'];
+		$data['tc'] = $_POST['tc'];
+		
 		//拼接sql语句
-		$sql = "update `comment` set ";
+		$sql = "update `student` set ";
 		foreach($data as $k=>$v){
 			$sql .= "`$k`=:$k,";
 		}
 		$sql = rtrim($sql,',');//去掉最右边的逗号
-		$sql .= " where id=$id";
+		$sql .= " where sno={$data['sno']}";
 		//通过预处理执行SQL
 		$this->db->execute($sql,$data,$flag);
+		//返回是否执行成功
+		return $flag;
+	}
+	
+	
+	public function deleteById(){
+		$sno = (int)$_GET['sno'];
+		$sql = "delete from `student` where sno=:sno";
+		//通过预处理执行SQL
+		$this->db->execute($sql,array(':sno'=>$sno),$flag);
 		//返回是否执行成功
 		return $flag;
 	}

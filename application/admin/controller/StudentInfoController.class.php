@@ -34,6 +34,16 @@ class StudentInfoController extends platformController{
 			require './application/admin/view/StudentInfo_add.html';
 			//header("location:index.php?p=admin");
 	}
+	
+	
+	function updateViewAction(){
+	
+	$StudentInfoModel = new StudentInfoModel();
+	$data = $StudentInfoModel->getById();
+
+			require './application/admin/view/StudentInfo_update.html';
+			//header("location:index.php?p=admin");
+	}
 		
 		
 	public function addAction(){
@@ -60,19 +70,53 @@ class StudentInfoController extends platformController{
 //		}
 	}
 	
-	public function testAction(){
-	if(empty($_POST)){
+		public function updateAction(){
+		//判断是否是POST方式提交
+		if(empty($_POST)){
 			return false;
 		}
-	
-	$StudentInfoModel = new StudentInfoModel();
-	$pass = $StudentInfoModel->insert();
-	if($pass){
-				echo $pass;
+		//实例化comment模型
+		$StudentInfoModel = new StudentInfoModel();
+		//调用insert方法
+		$pass = $StudentInfoModel->save();
+		//判断是否执行成功
+		if($pass){
+				echo "<script>alert('操作成功');location.href='index.php?p=admin&c=StudentInfo&a=list';</script>";
 			}else{
-				echo $pass;
+				echo "<script>alert('操作不成功');location.href='index.php?p=admin&c=StudentInfo&a=addView';</script>";
 			}
+
 	}
+	
+	
+	
+	public function deleteAction(){
+		if(!isset($_GET['sno'])){
+			return false;
+		}
+		//实例化comment模型
+		$StudentInfoModel = new StudentInfoModel();
+		//删除指定ID记录
+		if( $StudentInfoModel->deleteById() ){
+			//完成后跳转
+			$this->jump('index.php?p=admin&c=StudentInfo&a=list');
+		}else{
+			die('删除留言失败。');
+		}
+	}
+	
+	public function testAction(){
+	    if(empty($_POST)){
+			return false;
+		}
+		//实例化comment模型
+		$StudentInfoModel = new StudentInfoModel();
+		//调用insert方法
+		$pass = $StudentInfoModel->save();
+		//判断是否执行成功
+		echo $pass;
+			
+			}
 	
 	
 	
