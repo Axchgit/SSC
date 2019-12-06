@@ -2,23 +2,23 @@
 /**
  * 留言模块控制器类
  */
-class StudentInfoController extends platformController{
+class TeacherInfoController extends platformController{
 	/**
 	 * 留言列表
 	 */
 	public function listAction(){
 		//实例化comment模型
-		$StudentInfoModel = new StudentInfoModel();
+		$TeacherInfoModel = new TeacherInfoModel();
 		//取得留言总数
-		$num = $StudentInfoModel->getNumber();
+		$num = $TeacherInfoModel->getNumber();
 		//实例化分页类
 		$page = new page($num,$GLOBALS['config'][PLATFORM]['pagesize']);
 		//取得所有留言数据
-		$data = $StudentInfoModel->getAll($page->getLimit());
+		$data = $TeacherInfoModel->getAll($page->getLimit());
 		//取得分页导航链接
 		$pageList = $page->getPageList();
 		//载入视图文件
-		require './application/admin/view/StudentInfo_list.html';
+		require './application/admin/view/TeacherInfo_list.html';
 	}
 	
 	function homeAction(){
@@ -31,17 +31,17 @@ class StudentInfoController extends platformController{
 			//header("location:index.php?p=admin");
 	}
 	function addViewAction(){
-			require './application/admin/view/StudentInfo_add.html';
+			require './application/admin/view/TeacherInfo_add.html';
 			//header("location:index.php?p=admin");
 	}
 	
 	
 	function updateViewAction(){
 	
-	$StudentInfoModel = new StudentInfoModel();
-	$data = $StudentInfoModel->getById();
+	$TeacherInfoModel = new TeacherInfoModel();
+	$data = $TeacherInfoModel->getById();
 
-			require './application/admin/view/StudentInfo_update.html';
+			require './application/admin/view/TeacherInfo_update.html';
 			//header("location:index.php?p=admin");
 	}
 		
@@ -52,21 +52,21 @@ class StudentInfoController extends platformController{
 			return false;
 		}
 		//实例化comment模型
-		$StudentInfoModel = new StudentInfoModel();
+		$TeacherInfoModel = new TeacherInfoModel();
 		//调用insert方法
-		$pass = $StudentInfoModel->insert();
+		$pass = $TeacherInfoModel->insert();
 		//判断是否执行成功
 		if($pass){
-				echo "<script>alert('操作成功');location.href='index.php?p=admin&c=StudentInfo&a=list';</script>";
+				echo "<script>alert('操作成功');location.href='index.php?p=admin&c=TeacherInfo&a=list';</script>";
 			}else{
-				echo "<script>alert('操作不成功');location.href='index.php?p=admin&c=StudentInfo&a=updateView';</script>";
+				echo "<script>alert('操作不成功');location.href='index.php?p=admin&c=TeacherInfo&a=addView';</script>";
 			}
 //		if($pass){
 //			//成功时
-//			$this->jump('index.php?p=admin&c=StudentInfo&a=home','发表留言成功');
+//			$this->jump('index.php?p=admin&c=TeacherInfo&a=home','发表留言成功');
 //		}else{
 //			//失败时
-//			$this->jump('index.php?p=admin&c=StudentInfo&a=home','发表留言失败');
+//			$this->jump('index.php?p=admin&c=TeacherInfo&a=home','发表留言失败');
 //		}
 	}
 	
@@ -76,14 +76,14 @@ class StudentInfoController extends platformController{
 			return false;
 		}
 		//实例化comment模型
-		$StudentInfoModel = new StudentInfoModel();
+		$TeacherInfoModel = new TeacherInfoModel();
 		//调用insert方法
-		$pass = $StudentInfoModel->save();
+		$pass = $TeacherInfoModel->save();
 		//判断是否执行成功
 		if($pass){
-				echo "<script>alert('操作成功');location.href='index.php?p=admin&c=StudentInfo&a=list';</script>";
+				echo "<script>alert('操作成功');location.href='index.php?p=admin&c=TeacherInfo&a=list';</script>";
 			}else{
-				echo "<script>alert('操作不成功');location.href='index.php?p=admin&c=StudentInfo&a=addView';</script>";
+				echo "<script>alert('操作不成功');location.href='index.php?p=admin&c=TeacherInfo&a=updateView';</script>";
 			}
 
 	}
@@ -91,15 +91,15 @@ class StudentInfoController extends platformController{
 	
 	
 	public function deleteAction(){
-		if(!isset($_GET['sno'])){
+		if(!isset($_GET['tno'])){
 			return false;
 		}
 		//实例化comment模型
-		$StudentInfoModel = new StudentInfoModel();
+		$TeacherInfoModel = new TeacherInfoModel();
 		//删除指定ID记录
-		if( $StudentInfoModel->deleteById() ){
+		if( $TeacherInfoModel->deleteById() ){
 			//完成后跳转
-			$this->jump('index.php?p=admin&c=StudentInfo&a=list');
+			$this->jump('index.php?p=admin&c=TeacherInfo&a=list');
 		}else{
 			die('删除留言失败。');
 		}
@@ -110,9 +110,9 @@ class StudentInfoController extends platformController{
 			return false;
 		}
 		//实例化comment模型
-		$StudentInfoModel = new StudentInfoModel();
+		$TeacherInfoModel = new TeacherInfoModel();
 		//调用insert方法
-		$pass = $StudentInfoModel->save();
+		$pass = $TeacherInfoModel->save();
 		//判断是否执行成功
 		echo $pass;
 			

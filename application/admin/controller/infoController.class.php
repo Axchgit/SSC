@@ -2,7 +2,7 @@
 /**
  * 留言模块控制器类
  */
-class StudentInfoController extends platformController{
+class infoController extends platformController{
 	/**
 	 * 留言列表
 	 */
@@ -21,19 +21,7 @@ class StudentInfoController extends platformController{
 		require './application/admin/view/StudentInfo_list.html';
 	}
 	
-	function homeAction(){
-			require './application/admin/view/home.html';
-			//header("location:index.php?p=admin");
-	}
-		
-	function menuAction(){
-			require './application/admin/view/menu.html';
-			//header("location:index.php?p=admin");
-	}
-	function addViewAction(){
-			require './application/admin/view/StudentInfo_add.html';
-			//header("location:index.php?p=admin");
-	}
+
 	
 	
 	function updateViewAction(){
@@ -42,6 +30,12 @@ class StudentInfoController extends platformController{
 	$data = $StudentInfoModel->getById();
 
 			require './application/admin/view/StudentInfo_update.html';
+			//header("location:index.php?p=admin");
+	}
+	
+	
+	function selectViewAction(){
+			require './application/admin/view/info_select.html';
 			//header("location:index.php?p=admin");
 	}
 		
@@ -59,7 +53,7 @@ class StudentInfoController extends platformController{
 		if($pass){
 				echo "<script>alert('操作成功');location.href='index.php?p=admin&c=StudentInfo&a=list';</script>";
 			}else{
-				echo "<script>alert('操作不成功');location.href='index.php?p=admin&c=StudentInfo&a=updateView';</script>";
+				echo "<script>alert('操作不成功');location.href='index.php?p=admin&c=StudentInfo&a=addView';</script>";
 			}
 //		if($pass){
 //			//成功时
@@ -105,16 +99,48 @@ class StudentInfoController extends platformController{
 		}
 	}
 	
+	
+	public function selectAction(){
+	
+	$infoModel = new infoModel();
+	$data = $infoModel->getById();
+	if($_GET['v'] == 'student'){
+	
+	require './application/admin/view/student_select_list.html';
+	}
+	if($_GET['v'] == 'teacher'){
+	
+	require './application/admin/view/teacher_select_list.html';
+	}
+	if($_GET['v'] == 'course'){
+	
+	require './application/admin/view/course_select_list.html';
+	}
+	
+	
+	
+	}	
+	
+	
+	
 	public function testAction(){
-	    if(empty($_POST)){
-			return false;
-		}
-		//实例化comment模型
-		$StudentInfoModel = new StudentInfoModel();
-		//调用insert方法
-		$pass = $StudentInfoModel->save();
-		//判断是否执行成功
-		echo $pass;
+	
+	
+		
+	$infoModel = new infoModel();
+	$data = $infoModel->test();
+	echo $data['sname'];
+//	require './application/admin/view/select_list.html';
+//	
+//	    if(empty($_POST)){
+//			return false;
+//		}
+//		//实例化comment模型
+//		$StudentInfoModel = new StudentInfoModel();
+//		//调用insert方法
+//		$pass = $StudentInfoModel->save();
+//		//判断是否执行成功
+//		echo $pass;
 			
 			}
 	

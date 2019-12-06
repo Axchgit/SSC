@@ -1,0 +1,11 @@
+body {font-size: 14px; letter-spacing: 1.2px;}
+ .title {color: beige;font-size: 700;}
+a {color: steelblue;text-decoration: none;}
+/*a:visited {color: steelblue;}*/
+/*a:hover {text-decoration: underline;font-size: 700;}*/
+.nav {width: 90%; background-color: beige;margin: 5px auto 5px auto;}
+.nav .left {float: left; padding: 5px 10px 5px 10px;}
+.nav .right { float: right; padding: 5px 10px 5px 10px}
+.nav .current {background-color: steelblue;color: white;}
+
+
