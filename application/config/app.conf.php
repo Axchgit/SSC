@@ -13,14 +13,14 @@ return array(
 	),
 	//前台配置
 	'home' => array(
-		'default_controller' => 'comment',//默认控制器
-		'default_action' => 'list',//默认方法
+		'default_controller' => 'platform',//默认控制器
+		'default_action' => 'login',//默认方法
 		'pagesize' => 5,//每页评论数
 	),
 	//后台配置
 	'admin' => array(
 		'default_controller' => 'StudentInfo',//默认控制器
-		'default_action' => 'home',//默认方法 //登录成功后默认页面
+		'default_action' => 'admin_home',//默认方法 //登录成功后默认页面
 		'pagesize' => 5,//每页评论数
 	)
 );

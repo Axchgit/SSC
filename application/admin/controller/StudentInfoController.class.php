@@ -21,13 +21,13 @@ class StudentInfoController extends platformController{
 		require './application/admin/view/StudentInfo_list.html';
 	}
 	
-	function homeAction(){
-			require './application/admin/view/home.html';
+	function admin_homeAction(){
+			require './application/admin/view/admin_home.html';
 			//header("location:index.php?p=admin");
 	}
 		
-	function menuAction(){
-			require './application/admin/view/menu.html';
+	function admin_menuAction(){
+			require './application/admin/view/admin_menu.html';
 			//header("location:index.php?p=admin");
 	}
 	function addViewAction(){

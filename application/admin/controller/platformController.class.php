@@ -19,6 +19,7 @@ class platformController{
 		return ;
 
 	}
+	
 		//通过SESSION判断是否登录
 		session_start();
 		if(!isset($_SESSION['admin'])){

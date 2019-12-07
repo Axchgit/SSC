@@ -18,7 +18,7 @@ class commentController extends platformController{
 		//取得分页导航链接
 		$pageList = $page->getPageList();
 		//载入视图文件
-		require './application/home/view/comment_list.html';
+		require './application/home/view/student_home.html';
 	}
 	/**
 	 * 发表留言
