@@ -12,40 +12,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>留言板后台</title>
+<title>学生界面</title>
 <link rel="stylesheet" href="./public/css/admin.css" />
 <link rel="stylesheet" href="./public/css/style.css" />
 </head>
 <body>
 <div id="box">
-	<h1>信息列表</h1>
-	<div id="info">欢迎您：admin <a href="index.php?p=admin&c=admin&a=logout " target="_top">退出</a></div>
+	<h1>已选课程</h1>
+	<!--<div id="info">欢迎您：admin <a href="index.php?p=admin&c=admin&a=logout">退出</a></div>-->
 	<div id="comment">
 	
-		<!--<ul class="list">
-			<li>作者：<?php echo $v['sname'] ?> 邮箱：<?php echo $v['sno']; ?> IP：<?php echo $v['tc']; ?>
-				<span class="right">
-				<a href="index.php?p=admin&c=StudentInfo&a=updateView&sno=<?php echo $v['sno']; ?>">修改</a>
-				<a href="index.php?p=admin&c=StudentInfo&a=delete&sno=<?php echo $v['sno']; ?>">删除</a>
-				</span>
-			</li>-->
+	
 			
-<table class="list" border=2><br><br></caption><tr><th>学号</th><th>姓名</th><th>性别</th><th>出生日期</th><th>专业</th><th>班级</th><th>学分</th><th>操作</th></tr>
+<table class="list" border=2><br><br></caption><tr><th>课程号</th><th>课程名</th><th>学分</th><th>授课教师</th><th>操作</th></tr>
+
 	<?php foreach($data as $v): ?>
 	
 	<tr id="comment" >
-		<td align='center'><?php echo $v['sno'] ?></td>
+		<td align='center'><?php echo $v['cno'] ?></td>
 		<!--<td align='center' ><div style='text-align: center;' >
 		<img width='100px'height='80px'   src='$arr[picture]' /></td>-->
-		<td align='center'><?php echo $v['sname'] ?></td>
-		<td align='center'><?php echo $v['ssex'] ?></td>
-		<td align='center'><?php echo $v['sbirthday'] ?></td>
-		<td align='center'><?php echo $v['speciality'] ?></td>
+		<td align='center'><?php echo $v['cname'] ?></td>
+		<td align='center'><?php echo $v['credit'] ?></td>
+		<td align='center'><?php echo $v['tno'] ?></td>
+		<!--<td align='center'><?php echo $v['speciality'] ?></td>
 		<td align='center'><?php echo $v['sclass'] ?></td>
-		<td align='center'><?php echo $v['tc'] ?></td>
+		<td align='center'><?php echo $v['tc'] ?></td>-->
 		<td align='center'>
-		    <a href="index.php?p=admin&c=StudentInfo&a=updateView&sno=<?php echo $v['sno']; ?>">修改</a>
-			<a href="index.php?p=admin&c=StudentInfo&a=delete&sno=<?php echo $v['sno']; ?>">删除</a>
+		  <!--<a href="index.php?p=home&c=student&a=pickCourse&cno=<?php echo $v['cno']; ?>">选课</a>-->
+			<a href="index.php?p=home&c=student&a=cancelSelect&cno=<?php echo $v['cno']; ?>">退选</a>
 		</td></tr>
 		<!--<td align='center'><a href='amend_vege.php?id={$arr['id']}'><button class='bt3' >修改</button></a> | <a href='delete_vege.php?id={$arr['id']}'><button class='bt3' >删除</button></a></td></tr>";-->
 	<?php endForeach; ?>

@@ -106,12 +106,12 @@ class teacherController extends platformController{
 	/**
 	 * 退出方法
 	 */
-	public function logoutAction(){
-		$_SESSION = null;
-		session_destroy();
-		//跳转
-		$this->jump('index.php?p=home');
-	}
+//	public function logoutAction(){
+//		$_SESSION = null;
+//		session_destroy();
+//		//跳转
+//		$this->jump('index.php?p=home');
+//	}
 	/**
 	 * 生成验证码
 	 */

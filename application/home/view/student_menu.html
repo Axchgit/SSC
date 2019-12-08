@@ -8,10 +8,10 @@
 	<body>
 		<div id='courese' onclick="showCourse()"><span id="m1">▶</span>课程管理</div>
 		<div id='course_submenu' style="display: none; padding-left: 20px;">
-			<p><a href="index.php?p=admin&c=CourseInfo&a=addView"  target="main">已选课程</p>
-			<p><a href="index.php?p=admin&c=CourseInfo&a=list"  target="main">课程列表</p>
-			<p><a href="index.php?p=admin&c=info&a=selectView&v=course"  target="main">查询课程</p>
-			<p><a href="index.php?p=admin&c=info&a=selectView&v=student"  target="main">课程分数</p>
+			<p><a href="index.php?p=home&c=student&a=selectedCourse"  target="main">已选课程</p>
+			<p><a href="index.php?p=home&c=student&a=courseList"  target="main">课程列表</p>
+			<p><a href="index.php?p=home&c=student&a=selectCourse"  target="main">查询课程</p>
+			<p><a href="index.php?p=home&c=student&a=courseScore"  target="main">课程分数</p>
 		</div>
 	
 	
@@ -29,6 +29,13 @@
 			<p><a href="index.php?p=admin&c=info&a=selectView&v=teacher"  target="main">教师信息查询</p>
 		</div>
 	</body>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<form  method="post" enctype="multipart/form-data" action="index.php?p=home&c=platform&a=logout" target="_top">
+		
+			<p><input type="submit" class="post_button" value="退出登录" />
+			</p>
+			<!--<textarea name="comment" required="required" placeholder="在此处输入留言"></textarea>-->
+		</form>
 	<script>
 	function showCourse(){
 		var t=$("#course_submenu").css("display");

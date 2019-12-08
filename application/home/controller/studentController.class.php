@@ -15,10 +15,10 @@ class studentController extends platformController{
 	 */
 	private function studentCheckLogin(){
 		//login方法不需要验证
-//		if(CONTROLLER=='student' && (ACTION=='login' || ACTION=='captcha')){
-//
-//		return ;
-//	}	
+		if(CONTROLLER=='student' && (ACTION=='login' || ACTION=='captcha')){
+
+		return ;
+	}	
 		//通过SESSION判断是否登录
 		session_start();
 		if(!isset($_SESSION['student'])){
@@ -26,6 +26,18 @@ class studentController extends platformController{
 			$this->jump('index.php?p=home&c=platform&a=login');
 		}
 	}
+	
+	/**
+	 * 生成验证码
+	 */
+	public function captchaAction(){
+
+		$captcha = new captcha();
+
+		$captcha->generate();
+
+	}
+	
 	
 	/**
 	 * 学生主界面
@@ -71,57 +83,109 @@ class studentController extends platformController{
 		//载入视图文件
 		require './application/home/view/student_home.html';
 	}
+	/**
+	 * 已选课程
+	 */
+	public function selectedCourseAction(){
+		$studentModel = new studentModel();
+		
+		$data = $studentModel->getCourseBySno();
+		//取得总数
+		$num = $studentModel->getNumber();
+		//实例化分页类
+		$page = new page($num,$GLOBALS['config'][PLATFORM]['pagesize']);
+		//取得分页导航链接	
+		$pageList = $page->getPageList();
+		require './application/home/view/student_selected_course.html';
+	}
+
+
 
 	/**
-	 * 登录方法
+	 * 课程列表
 	 */
-//	public function loginAction(){
-//		//判断是否有表单提交
-//		if(!empty($_POST)){
-//			$captcha=new captcha();
-//
-//			//判断验证码是否正确
-//
-//			if(!$captcha->checkCode(strtolower($_POST['captcha']))){
-//				//验证失败
-//				die('输入的验证码不正确。');
-//				}
-//			//实例化student模型
-//			$studentModel = new studentModel();
-//			//调用验证方法
-//			if($studentModel->checkByLogin()){
-//				//登录成功
-//				session_start();
-//				$_SESSION['student'] = 'yes';
-//				//跳转
-//				$this->jump('index.php?p=home&c=student&a=student_home');
-//			}else{
-//				//登录失败
-//				die('登录失败，用户名或密码错误。');
-//			}
-//		}
-//		//载入视图文件
-//		require('./application/home/view/user_login.html');
-//	}
-	/**
-	 * 退出方法
-	 */
-	public function logoutAction(){
-		$_SESSION = null;
-		session_destroy();
-		//跳转
-		$this->jump('index.php?p=home');
+	public function courseListAction(){
+		//实例化comment模型
+		$studentModel = new studentModel();
+		//取得留言总数
+		$num = $studentModel->getNumber();
+		//实例化分页类
+		$page = new page($num,$GLOBALS['config'][PLATFORM]['pagesize']);
+		//取得所有留言数据
+		$data = $studentModel->getAll($page->getLimit());
+		//取得分页导航链接
+		$pageList = $page->getPageList();
+		//载入视图文件
+		require './application/home/view/course_list.html';
 	}
 	/**
-	 * 生成验证码
+	 * 查询课程
 	 */
-	public function captchaAction(){
+	public function selectCourseAction(){
+	
+		//判断是否有表单提交
+		if(!empty($_POST)){
+		$studentModel = new studentModel();
+		
+		$num = $studentModel->getNumber();
+		//实例化分页类
+		$page = new page($num,$GLOBALS['config'][PLATFORM]['pagesize']);
+		//取得分页导航链接
+		$pageList = $page->getPageList();
+		
+		$data = $studentModel->getCourseByCname();
+		
+		
+		require './application/home/view/course_list.html';
+		
+		die();
+		
+		}
+		require './application/home/view/course_select.html';
 
-		$captcha = new captcha();
-
-		$captcha->generate();
-
-}
+	}
+	/**
+	 * 课程分数
+	 */
+	public function courseScoreAction(){
+		$studentModel = new studentModel();
+		
+		$data = $studentModel->getCourseScore();
+		//取得总数
+		$num = $studentModel->getNumber();
+		//实例化分页类
+		$page = new page($num,$GLOBALS['config'][PLATFORM]['pagesize']);
+		//取得分页导航链接	
+		$pageList = $page->getPageList();
+		require './application/home/view/course_score.html';
+	}
+	/**
+	 * 学生选课
+	 */
+	public function pickCourseAction(){
+		$studentModel = new studentModel();
+		$pass = $studentModel->insertPickCourse();
+		//判断是否执行成功
+		if($pass){
+				echo "<script>alert('选课成功');location.href='index.php?p=home&c=student&a=courseList';</script>";
+			}else{
+				echo "<script>alert('不能重复选课或数据库故障');location.href='index.php?p=home&c=student&a=courseList';</script>";
+			}
+	}
+	/**
+	 * 退选课程
+	 */
+	public function cancelSelectAction(){
+		$studentModel = new studentModel();
+		$pass = $studentModel->cancelSelect();
+			//判断是否执行成功
+		if($pass){
+				echo "<script>alert('退选成功');location.href='index.php?p=home&c=student&a=courseList';</script>";
+			}else{
+				echo "<script>alert('你还没有选择此课程或数据库故障');location.href='index.php?p=home&c=student&a=courseList';</script>";
+			}
+	}
+	
 
 
 }

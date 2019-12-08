@@ -24,7 +24,11 @@ class platformController{
 
 			if(!$captcha->checkCode(strtolower($_POST['captcha']))){
 				//验证失败
+//					$this->jump('index.php?p=home&c=student&a=login');
+				
 				die('输入的验证码不正确。');
+
+				
 				}
 			//实例化student模型
 			$platformModel = new platformModel();
@@ -32,15 +36,16 @@ class platformController{
 			if($platformModel->checkByLogin()){
 				//登录成功
 				if($_POST['user'] == 'student'){
-				
+					$sno = $_POST['no'];
 					session_start();
-					$_SESSION['student'] = 'yes';
+					$_SESSION['student'] = $sno;
 					//跳转
 					$this->jump('index.php?p=home&c=student&a=student_home');
-				}if($_POST['user'] == 'teacher')
-				{
+				}
+				if($_POST['user'] == 'teacher'){
+					$tno = $_POST['no'];
 					session_start();
-					$_SESSION['teacher'] = 'yes';
+					$_SESSION['teacher'] = $tno;
 					//跳转
 					$this->jump('index.php?p=home&c=teacher&a=teacher_home');
 				}
@@ -50,11 +55,7 @@ class platformController{
 				die('登录失败，用户名或密码错误。');
 			}
 			
-			if(window.parent != window){
-			
-			window.parent.location.reload(true);
-			
-			}
+		
 		}
 		require './application/home/view/user_login.html';
 		//载入视图文件
@@ -65,10 +66,12 @@ class platformController{
 	 * 退出方法
 	 */
 	public function logoutAction(){
+	    session_start();
+	    unset($_SESSION);
 		$_SESSION = null;
 		session_destroy();
 		//跳转
-		$this->jump('index.php?p=home');
+		$this->jump('index.php?p=home&c=student&a=student_home');
 	}
 
 
