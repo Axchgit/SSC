@@ -12,14 +12,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>留言板后台</title>
+<title>教师信息</title>
 <link rel="stylesheet" href="./public/css/admin.css" />
 <link rel="stylesheet" href="./public/css/style.css" />
 </head>
 <body>
 <div id="box">
 	<h1>欢迎你</h1>
-	<!--<div id="info">欢迎您：admin <a href="index.php?p=admin&c=admin&a=logout " target="_top">退出</a></div>-->
+	<!--<div id="info">欢迎您：admin <a href="index.php?p=admin&c=admin&a=logout">退出</a></div>-->
 	<div id="comment">
 	
 		<!--<ul class="list">
@@ -30,25 +30,26 @@
 				</span>
 			</li>-->
 			
-<table class="list" border=2><br><br></caption><tr><th>学号</th><th>姓名</th><th>性别</th><th>出生日期</th><th>专业</th><th>班级</th><th>学分</th></tr>
-	<?php foreach($data as $v): ?>
+<table class="list" border=2><br><br></caption><tr><th>教工号</th><th>姓名</th><th>性别</th><th>出生日期</th><th>职称</th><th>所属学院</th><th>教授课程</th></tr>
+	<?php foreach($data as $vv): ?>
+	
 	
 	<tr id="comment" >
-		<td align='center'><?php echo $v['sno'] ?></td>
-		<!--<td align='center'><?php echo $v['password'] ?></td>-->
+		<td align='center'><?php echo $vv['tno'] ?></td>
 		<!--<td align='center' ><div style='text-align: center;' >
 		<img width='100px'height='80px'   src='$arr[picture]' /></td>-->
-		<td align='center'><?php echo $v['sname'] ?></td>
-		<td align='center'><?php echo $v['ssex'] ?></td>
-		<td align='center'><?php echo $v['sbirthday'] ?></td>
-		<td align='center'><?php echo $v['speciality'] ?></td>
-		<td align='center'><?php echo $v['sclass'] ?></td>
-		<td align='center'><?php echo $v['tc'] ?></td>
+		<td align='center'><?php echo $vv['tname'] ?></td>
+		<td align='center'><?php echo $vv['tsex'] ?></td>
+		<td align='center'><?php echo $vv['tbirthday'] ?></td>
+		<td align='center'><?php echo $vv['title'] ?></td>
+		<td align='center'><?php echo $vv['school'] ?></td>
+		<td align='center'><?php echo $cInfo['cname'] ?></td>
+		
+		<!--<td align='center'><?php echo $vv['tc'] ?></td>-->
 		<!--<td align='center'>
-		    <a href="index.php?p=admin&c=StudentInfo&a=updateView&sno=<?php echo $v['sno']; ?>">修改</a>
-			<a href="index.php?p=admin&c=StudentInfo&a=delete&sno=<?php echo $v['sno']; ?>">删除</a>
-		</td>-->
-	</tr>
+		    <a href="index.php?p=admin&c=TeacherInfo&a=updateView&tno=<?php echo $vv['tno']; ?>">修改</a>
+			<a href="index.php?p=admin&c=TeacherInfo&a=delete&tno=<?php echo $vv['tno']; ?>">删除</a>
+		</td></tr>-->
 		<!--<td align='center'><a href='amend_vege.php?id={$arr['id']}'><button class='bt3' >修改</button></a> | <a href='delete_vege.php?id={$arr['id']}'><button class='bt3' >删除</button></a></td></tr>";-->
 	<?php endForeach; ?>
 
@@ -61,9 +62,7 @@
 		<!--</ul>-->
 		
 	</div>
-	<!--<div id="footer">
-		<?php echo $pageList; ?>
-	</div>-->
+
 </div>
 </body>
 </html>

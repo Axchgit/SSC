@@ -185,7 +185,50 @@ class studentController extends platformController{
 				echo "<script>alert('你还没有选择此课程或数据库故障');location.href='index.php?p=home&c=student&a=courseList';</script>";
 			}
 	}
+	/**
+	 * 学生个人信息
+	 */	
+	public function studentInfoAction(){
+		$studentModel = new studentModel();
+		$data = $studentModel->getBySno();
+		require './application/home/view/student_info.html';
 	
+	}
+	/**
+	 * 修改密码
+	 */
+	public function updatePasswordAction(){
+		if(!empty($_POST)){
+		
+		$oldpass = $_POST['oldpass'];
+		$newpass = $_POST['newpass'];
+		$newpasstwice = $_POST['newpasstwice'];
+		
+    	$studentModel = new studentModel();
+		$data = $studentModel->getBySno();
+//		var_dump($data);
+//		echo $data["sno"];
+		
+		foreach($data as $v);
+		
+		
+		
+		if($oldpass == $v['password'] && $newpass == $newpasstwice){
+		
+			$pass = $studentModel->updatePassword($newpass);		
+		}
+		
+//		$studentModel->updatePassword();
+		if($pass){
+				echo "<script>alert('修改成功');location.href='index.php?p=home&c=student&a=studentInfo';</script>";
+			}else{
+				echo "<script>alert('修改失败或数据库故障');location.href='index.php?p=home&c=student&a=studentInfo';</script>";
+			}		
+			
+		}
+		require './application/home/view/student_update_password.html';
+		
+	}
 
 
 }

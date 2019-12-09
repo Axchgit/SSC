@@ -22,9 +22,9 @@ class studentModel extends model{
 	 * 取得指定学号数据
 	 */
     public function getBySno(){
-   		$sno = (int)$_GET['sno'];
+   		$sno = $_SESSION['student'];
 		$sql = "select * from `student` where sno=$sno";
-		$data = $this->db->fetchRow($sql);
+		$data = $this->db->fetchAll($sql);
 		//处理换行符
 //		if($data!=false){
 //  		$data['comment'] = str_replace('<br />','',$data['comment']);
@@ -119,6 +119,32 @@ class studentModel extends model{
 		$this->db->execute($sql,array(':cno'=>$cno,':sno'=>$sno),$flag);
 		//返回是否执行成功
 		return $flag;
+	}
+	/**
+	 * 修改密码
+	 */
+	public function updatePassword(){
+		$sno = $_SESSION['student'];
+		$newpass = $_POST['newpass'];
+		
+		$sql = "update `student` set password=:password where sno=:sno ";
+		//通过预处理执行SQL
+		$this->db->execute($sql,array(':password'=>$newpass,':sno'=>$sno),$flag);
+	
+
+		//拼接sql语句
+//		$sql = "update `student` set ";
+//		foreach($data as $k=>$v){
+//			$sql .= "`$k`=:$k,";
+//		}
+//		$sql = rtrim($sql,',');//去掉最右边的逗号
+//		$sql .= " where password={$data['password']}";
+//		//通过预处理执行SQL
+//		$this->db->execute($sql,$data,$flag);
+		//返回是否执行成功
+		return $flag;
+	
+	
 	}
 
 	

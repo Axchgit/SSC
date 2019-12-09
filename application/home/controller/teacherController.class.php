@@ -13,12 +13,7 @@ class teacherController extends platformController{
 	/**
 	 * 验证是否登录 
 	 */
-	private function teacherCheckLogin(){
-		//login方法不需要验证
-//		if(CONTROLLER=='teacher' && (ACTION=='login' || ACTION=='captcha')){
-//
-//		return ;
-//	}	
+	private function teacherCheckLogin(){	
 		//通过SESSION判断是否登录
 		session_start();
 		if(!isset($_SESSION['teacher'])){
@@ -28,29 +23,29 @@ class teacherController extends platformController{
 	}
 	
 	/**
-	 * 学生主界面
+	 * 教师主界面
 	 */
 	function teacher_homeAction(){
-		require './application/home/view/teacher_home.html';
+		require './application/home/view/teacher/teacher_home.html';
 		//header("location:index.php?p=admin");
 	}
 	
 	/**
-	 * 学生导航界面
+	 * 教师菜单界面
 	 */
 		 
 	function teacher_menuAction(){
-		require './application/home/view/teacher_menu.html';
+		require './application/home/view/teacher/teacher_menu.html';
 		//header("location:index.php?p=admin");
 	}
 		
 	/**
-	 * 学生信息界面
+	 * 教师信息界面
 	 */	
-	function teacher_infoAction(){
-		require './application/home/view/teacher_info.html';
-		//header("location:index.php?p=admin");
-	}
+//	function teacher_infoAction(){
+//		require './application/home/view/teacher/teacher_info.html';
+//		//header("location:index.php?p=admin");
+//	}
 	
 	
 	
@@ -69,49 +64,9 @@ class teacherController extends platformController{
 		//取得分页导航链接
 		$pageList = $page->getPageList();
 		//载入视图文件
-		require './application/home/view/teacher_home.html';
+		require './application/home/view/teacher/teacher_home.html';
 	}
 
-	/**
-	 * 登录方法
-	 */
-//	public function loginAction(){
-//		//判断是否有表单提交
-//		if(!empty($_POST)){
-//			$captcha=new captcha();
-//
-//			//判断验证码是否正确
-//
-//			if(!$captcha->checkCode(strtolower($_POST['captcha']))){
-//				//验证失败
-//				die('输入的验证码不正确。');
-//				}
-//			//实例化teacher模型
-//			$teacherModel = new teacherModel();
-//			//调用验证方法
-//			if($teacherModel->checkByLogin()){
-//				//登录成功
-//				session_start();
-//				$_SESSION['teacher'] = 'yes';
-//				//跳转
-//				$this->jump('index.php?p=home&c=teacher&a=teacher_home');
-//			}else{
-//				//登录失败
-//				die('登录失败，用户名或密码错误。');
-//			}
-//		}
-//		//载入视图文件
-//		require('./application/home/view/user_login.html');
-//	}
-	/**
-	 * 退出方法
-	 */
-//	public function logoutAction(){
-//		$_SESSION = null;
-//		session_destroy();
-//		//跳转
-//		$this->jump('index.php?p=home');
-//	}
 	/**
 	 * 生成验证码
 	 */
@@ -121,7 +76,55 @@ class teacherController extends platformController{
 
 		$captcha->generate();
 
-}
+	}
+	
+	/**
+	 * 个人信息
+	 */
+	public function teacherInfoAction(){
+		$teacherModel = new teacherModel();
+		
+		$data = $teacherModel->getByTno();
+		$cInfo = $teacherModel->getCourseByTno();
+		require './application/home/view/teacher/teacher_info.html';
+		
+	}
+	
+	/**
+	 * 修改密码
+	 */
+	public function updatePasswordAction(){
+		if(!empty($_POST)){
+		
+		$oldpass = $_POST['oldpass'];
+		$newpass = $_POST['newpass'];
+		$newpasstwice = $_POST['newpasstwice'];
+		
+    	$teacherModel = new teacherModel();
+		$data = $teacherModel->getByTno();
+//		var_dump($data);
+//		echo $data["sno"];
+		
+		foreach($data as $v);
+		
+		
+		
+		if($oldpass == $v['password'] && $newpass == $newpasstwice){
+		
+			$pass = $teacherModel->updatePassword($newpass);		
+		}
+		
+//		$teacherModel->updatePassword();
+		if($pass){
+				echo "<script>alert('修改成功');location.href='index.php?p=home&c=teacher&a=teacherInfo';</script>";
+			}else{
+				echo "<script>alert('修改失败或数据库故障');location.href='index.php?p=home&c=teacher&a=teacherInfo';</script>";
+			}		
+			
+		}
+		require './application/home/view/teacher/teacher_update_password.html';
+		
+	}
 
 
 }
