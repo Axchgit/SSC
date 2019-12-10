@@ -96,26 +96,23 @@ class teacherController extends platformController{
 	public function updatePasswordAction(){
 		if(!empty($_POST)){
 		
-		$oldpass = $_POST['oldpass'];
-		$newpass = $_POST['newpass'];
-		$newpasstwice = $_POST['newpasstwice'];
+			$oldpass = $_POST['oldpass'];
+			$newpass = $_POST['newpass'];
+			$newpasstwice = $_POST['newpasstwice'];
+			
+    		$teacherModel = new teacherModel();
+			$data = $teacherModel->getByTno();
+//			var_dump($data);
+//			echo $data["sno"];
 		
-    	$teacherModel = new teacherModel();
-		$data = $teacherModel->getByTno();
-//		var_dump($data);
-//		echo $data["sno"];
+			foreach($data as $v);
+					
+			if($oldpass == $v['password'] && $newpass == $newpasstwice){		
+				$pass = $teacherModel->updatePassword($newpass);		
+			}
 		
-		foreach($data as $v);
-		
-		
-		
-		if($oldpass == $v['password'] && $newpass == $newpasstwice){
-		
-			$pass = $teacherModel->updatePassword($newpass);		
-		}
-		
-//		$teacherModel->updatePassword();
-		if($pass){
+//			$teacherModel->updatePassword();
+			if($pass){
 				echo "<script>alert('修改成功');location.href='index.php?p=home&c=teacher&a=teacherInfo';</script>";
 			}else{
 				echo "<script>alert('修改失败或数据库故障');location.href='index.php?p=home&c=teacher&a=teacherInfo';</script>";
@@ -125,6 +122,113 @@ class teacherController extends platformController{
 		require './application/home/view/teacher/teacher_update_password.html';
 		
 	}
+	
+	/**
+	 * 作业上传
+	 */
+	public function teacherWorkUploadAction(){
+		if(!empty($_POST)){
+		
+		$teacherModel = new teacherModel();
+		$pass = $teacherModel->insertUploadWork();
+		
+		if($pass){
+				echo "<script>alert('上传成功');location.href='index.php?p=home&c=teacher&a=teacherWorkList';</script>";
+			}else{
+				echo "<script>alert('上传失败或数据库故障');location.href='index.php?p=home&c=teacher&a=teacherWorkList';</script>";
+			}		
+			
+		}
+		require './application/home/view/teacher/teacher_work_upload.html';			
+	}
+	/**
+	 * 已上传作业列表
+	 */
+	public function teacherWorkListAction(){
+		$teacherModel = new teacherModel();
+		$data = $teacherModel->getTeacherWorkList();
+		require './application/home/view/teacher/teacher_work_list.html';			
+		
+	
+	}
+	/**
+	 * 删除作业
+	 */
+	public function deleteWorkAction(){		
+		$teacherModel = new teacherModel();
+		$pass = $teacherModel->deleteWorkById();
+		
+		if($pass){
+			echo "<script>alert('删除成功');location.href='index.php?p=home&c=teacher&a=teacherWorkList';</script>";
+		}else{
+			echo "<script>alert('删除失败或数据库故障');location.href='index.php?p=home&c=teacher&a=teacherWorkList';</script>";
+		}		
+				
+	}
+	/**
+	 * 学生列表
+	 */
+	public function studentListAction(){
+		$teacherModel = new teacherModel();
+		$data = $teacherModel->getStudentListByTno();
+//		foreach($data as $v);
+		
+//		echo $data['grade'];
+
+		require './application/home/view/teacher/teacher_student_list.html';			
+		
+	}
+	/**
+	 * 学生评分
+	 */
+	public function studentMarkAction(){
+		if(!empty($_POST)){	
+			$teacherModel = new teacherModel();
+			$pass = $teacherModel->updateStudentMark();
+			if($pass){
+				echo "<script>alert('打分成功');location.href='index.php?p=home&c=teacher&a=studentList';</script>";
+			}else{
+				echo "<script>alert('数据库故障');location.href='index.php?p=home&c=teacher&a=studentList';</script>";
+			}
+		}
+	
+		
+		require './application/home/view/teacher/teacher_student_mark.html';			
+		
+	}
+	
+	/**
+	 * 作业上传
+	 */
+	public function courseMeterialUploadAction(){
+		if(!empty($_POST)){
+		
+		$teacherModel = new teacherModel();
+		$pass = $teacherModel->insertUploadMeterial();
+		
+		if($pass){
+				echo "<script>alert('上传成功');location.href='index.php?p=home&c=teacher&a=courseMeterialList';</script>";
+			}else{
+				echo "<script>alert('上传失败或数据库故障');location.href='index.php?p=home&c=teacher&a=courseMeterialList';</script>";
+			}		
+			
+		}
+		require './application/home/view/teacher/teacher_meterial_upload.html';			
+	}
+	/**
+	 * 课程资料列表
+	 */
+	public function courseMeterialListAction(){
+	
+		$teacherModel = new teacherModel();
+		$data = $teacherModel->getCourseMeterialList();
+		require './application/home/view/teacher/teacher_meterial_list.html';			
+		
+	
+	
+	
+	}
+	
 
 
 }

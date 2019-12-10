@@ -215,7 +215,7 @@ class studentController extends platformController{
 		
 		if($oldpass == $v['password'] && $newpass == $newpasstwice){
 		
-			$pass = $studentModel->updatePassword($newpass);		
+			$pass = $studentModel->updatePassword();		
 		}
 		
 //		$studentModel->updatePassword();
@@ -229,6 +229,9 @@ class studentController extends platformController{
 		require './application/home/view/student_update_password.html';
 		
 	}
+	
+	
 
 
 }
+
