@@ -142,9 +142,89 @@ class studentModel extends model{
 //		//通过预处理执行SQL
 //		$this->db->execute($sql,$data,$flag);
 		//返回是否执行成功
+		return $flag;	
+	
+	}
+	/**
+	 * 课程作业列表
+	 */
+	public function getWorkBySno(){
+		$sno = $_SESSION['student'];
+		$sql = "select c.*
+    			from student a,score b,teacher_work c
+    			where a.sno=b.sno and b.cno=c.cno and a.sno=$sno";
+	    $data = $this->db->query($sql);
+    	return $data;
+	}
+	
+	/**
+	 * 完成作业上传
+	 */
+	public function insertUploadWork(){
+		$data['wname'] = $_POST['wname'];
+		$data['uploaddate']=date("Y-m-d H:i:s",time());
+		$data['sno'] = $_SESSION['student'];
+		//文件上传操作
+		$arr=$_FILES['workfile'];
+		$arr['tmp_name'];
+		$data['address']="./public/student_work/".$arr['name'];
+		move_uploaded_file($arr['tmp_name'],$data['address']);
+		//获取学生姓名
+		$data1 = $this->getBySno();
+		foreach($data1 as $vv);
+		$data['sname'] = $vv['sname'];
+		
+		
+//		$sql1 = "select cno from `course` where tno={$data['tno']}";
+//		$data1 = $this->db->fetchAll($sql1);		
+//		foreach($data1 as $vv);		
+		$data['cno'] = $_POST['cno'];	
+	    //sql语句拼接
+		$sql = "insert into `student_work` set ";
+		foreach($data as $k=>$v){
+			$sql .= "`$k`=:$k,";
+		}
+		$sql = rtrim($sql,',');//去掉最右边的逗号
+//		return $sql;
+//		通过预处理执行SQL
+		$this->db->execute($sql,$data,$flag);
+//		//返回是否执行成功
+//		
+		return $flag;		
+	}
+	/**
+	 * 已上传作业列表
+	 */
+	public function getStudentWorkList(){
+		$sno = $_SESSION['student'];
+		$sql = "select * from `student_work` where sno=$sno";
+		$data = $this->db->fetchAll($sql);
+		
+		
+		return $data;	
+	}
+	/**
+	 * 删除作业
+	 */
+	public function deleteWorkById(){
+		$id = (int)$_GET['id'];
+		$sql = "delete from `student_work` where id=:id";
+		//通过预处理执行SQL
+		$this->db->execute($sql,array(':id'=>$id),$flag);
+		//返回是否执行成功
 		return $flag;
+	}
 	
-	
+	/**
+	 * 课程资料列表
+	 */
+	public function getMaterialBySno(){
+		$sno = $_SESSION['student'];
+		$sql = "select c.*
+    			from student a,score b,course_material c
+    			where a.sno=b.sno and b.cno=c.cno and a.sno=$sno";
+	    $data = $this->db->query($sql);
+    	return $data;
 	}
 
 	

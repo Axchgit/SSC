@@ -200,34 +200,92 @@ class studentController extends platformController{
 	public function updatePasswordAction(){
 		if(!empty($_POST)){
 		
-		$oldpass = $_POST['oldpass'];
-		$newpass = $_POST['newpass'];
-		$newpasstwice = $_POST['newpasstwice'];
+			$oldpass = $_POST['oldpass'];
+			$newpass = $_POST['newpass'];
+			$newpasstwice = $_POST['newpasstwice'];
 		
-    	$studentModel = new studentModel();
-		$data = $studentModel->getBySno();
-//		var_dump($data);
-//		echo $data["sno"];
+    		$studentModel = new studentModel();
+			$data = $studentModel->getBySno();
+//			var_dump($data);
+//			echo $data["sno"];	
+			foreach($data as $v);
 		
-		foreach($data as $v);
-		
-		
-		
-		if($oldpass == $v['password'] && $newpass == $newpasstwice){
-		
-			$pass = $studentModel->updatePassword();		
-		}
-		
-//		$studentModel->updatePassword();
-		if($pass){
+			if($oldpass == $v['password'] && $newpass == $newpasstwice){		
+				$pass = $studentModel->updatePassword();		
+			}		
+//			$studentModel->updatePassword();
+			if($pass){
 				echo "<script>alert('修改成功');location.href='index.php?p=home&c=student&a=studentInfo';</script>";
 			}else{
 				echo "<script>alert('修改失败或数据库故障');location.href='index.php?p=home&c=student&a=studentInfo';</script>";
-			}		
-			
+			}				
 		}
 		require './application/home/view/student_update_password.html';
 		
+	}
+	/**
+	 * 课程作业列表
+	 */
+	public function studentWorkListAction(){
+	
+	    $studentModel = new studentModel();
+		$data = $studentModel->getWorkBySno();
+//		var_dump($data);
+//		echo $data["sno"];	
+//		foreach($data as $v);
+//		var_dump($data);
+			
+		
+		require './application/home/view/student/teacher_work_list.html';
+		
+		
+	}
+	/**
+	 * 作业上传
+	 */
+	public function workUploadAction(){
+		if(!empty($_POST)){
+		$studentModel = new studentModel();
+		$pass = $studentModel->insertUploadWork();
+			if($pass){
+				echo "<script>alert('上传成功');location.href='index.php?p=home&c=student&a=student_work_list';</script>";
+			}else{
+				echo "<script>alert('上传失败或数据库故障');location.href='index.php?p=home&c=student&a=student_work_list';</script>";
+			}	
+		}
+		require './application/home/view/student/student_work_upload.html';
+		
+	
+	}
+	/**
+	 * 已上传作业列表
+	 */
+	public function teacherWorkListAction(){
+		$studentModel = new studentModel();
+		$data = $studentModel->getStudentWorkList();
+		require './application/home/view/student/student_work_list.html';	
+	}
+	/**
+	 * 删除作业
+	 */
+	public function deleteWorkAction(){		
+		$studentModel = new studentModel();
+		$pass = $studentModel->deleteWorkById();
+		
+		if($pass){
+			echo "<script>alert('删除成功');location.href='index.php?p=home&c=student&a=teacherWorkList';</script>";
+		}else{
+			echo "<script>alert('删除失败或数据库故障');location.href='index.php?p=home&c=student&a=teacherWorkList';</script>";
+		}		
+				
+	}
+	/**
+	 * 课程资料列表
+	 */
+	public function courseMaterialListAction(){
+		$studentModel = new studentModel();
+		$data = $studentModel->getMaterialBySno();
+		require './application/home/view/student/course_material_list.html';	
 	}
 	
 	

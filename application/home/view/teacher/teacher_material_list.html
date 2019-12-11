@@ -38,7 +38,11 @@
 		<td align='center'><?php echo $v['uploaddate'] ?></td>
 		
 		<td align='center'>
-		    <a href="index.php?p=home&c=teacher&a=deleteMeterial&id=<?php echo $v['id']; ?>">删除</a>
+		    <a href="index.php?p=home&c=teacher&a=deleteMaterial&id=<?php echo $v['id']; ?>">删除</a> |
+		    <!--<a href="index.php?p=home&c=teacher&a=downloadMaterial&id=<?php echo $v['id']; ?>">下载</a>-->
+		    <a href="<?php echo $v['address'] ?>">下载</a>
+		    
+		    
 			<!--<a href="index.php?p=home&c=student&a=cancelSelect&cno=<?php echo $v['cno']; ?>">退选</a>-->
 		</td></tr>
 		<!--<td align='center'><a href='amend_vege.php?id={$arr['id']}'><button class='bt3' >修改</button></a> | <a href='delete_vege.php?id={$arr['id']}'><button class='bt3' >删除</button></a></td></tr>";-->

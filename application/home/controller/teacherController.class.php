@@ -200,31 +200,89 @@ class teacherController extends platformController{
 	/**
 	 * 作业上传
 	 */
-	public function courseMeterialUploadAction(){
+	public function courseMaterialUploadAction(){
 		if(!empty($_POST)){
 		
 		$teacherModel = new teacherModel();
-		$pass = $teacherModel->insertUploadMeterial();
+		$pass = $teacherModel->insertUploadMaterial();
 		
 		if($pass){
-				echo "<script>alert('上传成功');location.href='index.php?p=home&c=teacher&a=courseMeterialList';</script>";
+				echo "<script>alert('上传成功');location.href='index.php?p=home&c=teacher&a=courseMaterialList';</script>";
 			}else{
-				echo "<script>alert('上传失败或数据库故障');location.href='index.php?p=home&c=teacher&a=courseMeterialList';</script>";
+				echo "<script>alert('上传失败或数据库故障');location.href='index.php?p=home&c=teacher&a=courseMaterialList';</script>";
 			}		
 			
 		}
-		require './application/home/view/teacher/teacher_meterial_upload.html';			
+		require './application/home/view/teacher/teacher_Material_upload.html';			
 	}
 	/**
 	 * 课程资料列表
 	 */
-	public function courseMeterialListAction(){
+	public function courseMaterialListAction(){
 	
 		$teacherModel = new teacherModel();
-		$data = $teacherModel->getCourseMeterialList();
-		require './application/home/view/teacher/teacher_meterial_list.html';			
+		$data = $teacherModel->getCourseMaterialList();
+		require './application/home/view/teacher/teacher_Material_list.html';		
+	
+	}
+	
+	/**
+	 * 文件下载    文件下载直接点击地址链接即可
+	 */
+//	public function downloadMaterialAction(){
+//	
+//			
+//		$teacherModel = new teacherModel();
+//		$v = $teacherModel->getMaterialAddressByID();	
+//		$data = mb_convert_encoding($v, 'UTF-8');
+//		echo $data;			
+//	
+////		header("location:.$data");	//提示：此方法获取的地址中文部分为乱码
+//	 
+//	}
+	
+	/**
+	 * 删除课程资料
+	 */
+	public function deleteMaterialAction(){		
+		$teacherModel = new teacherModel();
+		$pass = $teacherModel->deleteMaterialById();
+		
+		if($pass){
+			echo "<script>alert('删除成功');location.href='index.php?p=home&c=teacher&a=courseMaterialList';</script>";
+		}else{
+			echo "<script>alert('删除失败或数据库故障');location.href='index.php?p=home&c=teacher&a=courseMaterialList';</script>";
+		}		
+				
+	}
+	/**
+	 * 学生上传作业
+	 */
+	public function studentWorkListAction(){
+		$teacherModel = new teacherModel();
+		$data = $teacherModel->getStudentWorkByCno();
+		require './application/home/view/teacher/student_work_list.html';		
 		
 	
+	}
+	/**
+	 * 作业批改
+	 */
+	public function studentWorkMarkAction(){
+	
+		if(!empty($_POST)){	
+			$teacherModel = new teacherModel();
+			$pass = $teacherModel->updateStudentWorkMark();
+			if($pass){
+				echo "<script>alert('打分成功');location.href='index.php?p=home&c=teacher&a=studentWorkList';</script>";
+			}else{
+				echo "<script>alert('数据库故障');location.href='index.php?p=home&c=teacher&a=studentWorkList';</script>";
+			}
+		}
+	
+		
+		require './application/home/view/teacher/student_work_mark.html';			
+		
 	
 	
 	}

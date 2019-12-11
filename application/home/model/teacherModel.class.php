@@ -179,14 +179,14 @@ class teacherModel extends model{
 	/**
 	 * 课程资料上传
 	 */
-	public function insertUploadMeterial(){
+	public function insertUploadMaterial(){
 		$data['mname'] = $_POST['mname'];
 		$data['uploaddate']=date("Y-m-d H:i:s",time());
 		$data['tno'] = $_SESSION['teacher'];
 		//文件上传操作
-		$arr=$_FILES['meterialfile'];
+		$arr=$_FILES['materialfile'];
 		$arr['tmp_name'];
-		$data['address']="./public/course_meterial/".$arr['name'];
+		$data['address']="./public/course_material/".$arr['name'];
 		move_uploaded_file($arr['tmp_name'],$data['address']);
 		//获取课程号
 		$sql1 = "select cno from `course` where tno={$data['tno']}";
@@ -195,7 +195,7 @@ class teacherModel extends model{
 		
 		$data['cno'] = $vv['cno'];	
 	    //sql语句拼接
-		$sql = "insert into `course_meterial` set ";
+		$sql = "insert into `course_material` set ";
 		foreach($data as $k=>$v){
 			$sql .= "`$k`=:$k,";
 		}
@@ -210,10 +210,10 @@ class teacherModel extends model{
 	/**
 	 * 课程资料列表
 	 */
-	public function getCourseMeterialList(){
+	public function getCourseMaterialList(){
 	
 		$tno = $_SESSION['teacher'];
-		$sql = "select * from `course_meterial` where tno=$tno";
+		$sql = "select * from `course_material` where tno=$tno";
 		$data = $this->db->fetchAll($sql);
 		
 		
@@ -221,6 +221,71 @@ class teacherModel extends model{
 	
 	
 	}
+	/**
+	 * 删除资料
+	 */
+	public function deleteMaterialById(){
+		$id = (int)$_GET['id'];
+		$sql = "delete from `course_material` where id=:id";
+		//通过预处理执行SQL
+		$this->db->execute($sql,array(':id'=>$id),$flag);
+		//返回是否执行成功
+		return $flag;
+	}
+	/**
+	 * 资料下载
+	 */
+//	public function getMaterialAddressByID(){
+//		$id = (int)$_GET['id'];
+//		$sql = "select address from `course_material` where id=:id";
+//		//通过预处理执行SQL
+//		$data = $this->db->execute($sql,array(':id'=>$id),$flag);
+//		foreach($data as $v);
+//		
+//		//返回是否执行成功
+//		return $v['address'];	
+//	}
+	/**
+	 * 学生作业列表
+	 */
+	public function getStudentWorkByCno(){
+		$tno = $_SESSION['teacher'];
+		$sql = "select c.*
+    			from teacher a,course b,student_work c
+    			where a.tno=b.tno and b.cno=c.cno and a.tno=$tno";
+	    $data = $this->db->query($sql);
+    	return $data;
+	}
+	/**
+	 * 学生评分
+	 */
+	public function updateStudentWorkMark(){
+		
+//		$data1 = $this->getStudentListByTno();
+//	
+//		foreach($data1 as $vv);
+//		$sno = $_GET['sno'];
+//		$cno = $_GET['cno'];
+		
+		$id = $_GET['id'];
+		
+		$data['score'] = $_POST['score'];
+
+		
+			//拼接sql语句
+		$sql = "update `student_work` set ";
+		foreach($data as $k=>$v){
+			$sql .= "`$k`=:$k,";
+		}
+		$sql = rtrim($sql,',');//去掉最右边的逗号
+		$sql .= " where id=$id";
+		//通过预处理执行SQL
+		$this->db->execute($sql,$data,$flag);
+		//返回是否执行成功
+		return $flag;
+	
+	}
+
 	
 	
 	
