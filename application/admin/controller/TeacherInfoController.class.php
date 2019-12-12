@@ -35,8 +35,10 @@ class TeacherInfoController extends platformController{
 			//header("location:index.php?p=admin");
 	}
 	
-	
-	function updateViewAction(){
+	/**
+	 * 进入添加信息页面
+	 */
+	public function updateViewAction(){
 	
 	$TeacherInfoModel = new TeacherInfoModel();
 	$data = $TeacherInfoModel->getById();
@@ -45,7 +47,9 @@ class TeacherInfoController extends platformController{
 			//header("location:index.php?p=admin");
 	}
 		
-		
+	/**
+	 * 添加信息
+	 */	
 	public function addAction(){
 		//判断是否是POST方式提交
 		if(empty($_POST)){
@@ -54,7 +58,7 @@ class TeacherInfoController extends platformController{
 		//实例化comment模型
 		$TeacherInfoModel = new TeacherInfoModel();
 		//调用insert方法
-		$pass = $TeacherInfoModel->insert();
+		$pass = $TeacherInfoModel->insertTeacherInfo();
 		//判断是否执行成功
 		if($pass){
 				echo "<script>alert('操作成功');location.href='index.php?p=admin&c=TeacherInfo&a=list';</script>";
@@ -69,8 +73,10 @@ class TeacherInfoController extends platformController{
 //			$this->jump('index.php?p=admin&c=TeacherInfo&a=home','发表留言失败');
 //		}
 	}
-	
-		public function updateAction(){
+	/**
+	 * 修改信息
+	 */
+	public function updateAction(){
 		//判断是否是POST方式提交
 		if(empty($_POST)){
 			return false;
@@ -78,7 +84,7 @@ class TeacherInfoController extends platformController{
 		//实例化comment模型
 		$TeacherInfoModel = new TeacherInfoModel();
 		//调用insert方法
-		$pass = $TeacherInfoModel->save();
+		$pass = $TeacherInfoModel->updateTeacherInfo();
 		//判断是否执行成功
 		if($pass){
 				echo "<script>alert('操作成功');location.href='index.php?p=admin&c=TeacherInfo&a=list';</script>";
@@ -89,7 +95,9 @@ class TeacherInfoController extends platformController{
 	}
 	
 	
-	
+	/**
+	 * 删除信息
+	 */
 	public function deleteAction(){
 		if(!isset($_GET['tno'])){
 			return false;
@@ -105,6 +113,9 @@ class TeacherInfoController extends platformController{
 		}
 	}
 	
+	/**
+	 * 测试用类
+	 */
 	public function testAction(){
 	    if(empty($_POST)){
 			return false;

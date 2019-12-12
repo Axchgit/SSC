@@ -37,13 +37,14 @@ class StudentInfoModel extends model{
      * 添加学生信息
      */
     
-	public function insert(){
+	public function insertStudentInfo(){
 		//输入过滤
 //		$this->filter(array('sno','sname','sbirthday','speciality','sclass','tc'),'htmlspecialchars');
 //		$this->filter(array('student'),'nl2br');
 		//接收输入数据
 		$data['sno'] = $_POST['sno'];
 		$data['sname'] = $_POST['sname'];
+		$data['password'] = $_POST['password'];
 		if($_POST['ssex'] =='man'){
 		  $data['ssex'] = '男';		
 		}else{
@@ -68,9 +69,12 @@ class StudentInfoModel extends model{
 		return $flag;		
 
 	}
+	/**
+	 * 修改学生信息
+	 */
 	
 	
-	public function save(){
+	public function updateStudentInfo(){
 		//输入过滤
 //		$this->filter(array('id'),'intval');
 //		$this->filter(array('poster','mail','comment','reply'),'htmlspecialchars');

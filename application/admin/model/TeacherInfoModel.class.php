@@ -19,8 +19,8 @@ class TeacherInfoModel extends model{
 	  return $data['count(*)'];
     }
     /**
-	  * 取得指定tno记录
-	  */
+	 * 取得指定tno记录
+	 */
     public function getById(){
 	  $tno = $_GET['tno'];
 	  $sql = "select * from `teacher` where tno=$tno";
@@ -34,16 +34,16 @@ class TeacherInfoModel extends model{
     }
     
     /**
-     * 添加学生信息
-     */
-    
-	public function insert(){
+     * 添加教师信息
+     */    
+	public function insertTeacherInfo(){
 		//输入过滤
 //		$this->filter(array('tno','sname','sbirthday','speciality','sclass','tc'),'htmlspecialchars');
 //		$this->filter(array('teacher'),'nl2br');
 		//接收输入数据
 		$data['tno'] = $_POST['tno'];
 		$data['tname'] = $_POST['tname'];
+		$data['password'] = $_POST['password'];
 		if($_POST['tsex'] =='man'){
 		  $data['tsex'] = '男';		
 		}else{
@@ -67,10 +67,11 @@ class TeacherInfoModel extends model{
 //		
 		return $flag;		
 
-	}
-	
-	
-	public function save(){
+	}	
+	/**
+	 * 修改信息
+	 */
+	public function updateTeacherInfo(){
 		//输入过滤
 //		$this->filter(array('id'),'intval');
 //		$this->filter(array('poster','mail','comment','reply'),'htmlspecialchars');
@@ -101,7 +102,9 @@ class TeacherInfoModel extends model{
 		return $flag;
 	}
 	
-	
+	/**
+	 * 删除信息
+	 */
 	public function deleteById(){
 		$tno = $_GET['tno'];
 		$sql = "delete from `teacher` where tno=:tno";
