@@ -46,7 +46,7 @@
 		<td align='center'><?php echo $v['tc'] ?></td>-->
 		<td align='center'>
 		    <a href="index.php?p=admin&c=CourseInfo&a=updateView&cno=<?php echo $v['cno']; ?>">修改</a>
-			<a href="index.php?p=admin&c=CourseInfo&a=delete&cno=<?php echo $v['cno']; ?>">删除</a>
+			<a href="index.php?p=admin&c=CourseInfo&a=delete&cno=<?php echo $v['cno']; ?>" onclick="if(confirm('确实要删除吗？')) return true;else return false;">删除</a>
 		</td></tr>
 		<!--<td align='center'><a href='amend_vege.php?id={$arr['id']}'><button class='bt3' >修改</button></a> | <a href='delete_vege.php?id={$arr['id']}'><button class='bt3' >删除</button></a></td></tr>";-->
 	<?php endForeach; ?>

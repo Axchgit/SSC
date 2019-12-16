@@ -112,6 +112,8 @@ class studentController extends platformController{
 		$data = $studentModel->getAll($page->getLimit());
 		//取得分页导航链接
 		$pageList = $page->getPageList();
+		//获取已选课程号
+		$cno_data = $studentModel->getCourseScore();
 		//载入视图文件
 		require './application/home/view/student/course_list.html';
 	}

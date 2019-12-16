@@ -24,42 +24,36 @@ class platformController{
 
 			if(!$captcha->checkCode(strtolower($_POST['captcha']))){
 				//验证失败
-//					$this->jump('index.php?p=home&c=student&a=login');
-				
-				die('输入的验证码不正确。');
-
-				
-				}
-			//实例化student模型
-			$platformModel = new platformModel();
-			//调用验证方法
-			if($platformModel->checkByLogin()){
-				//登录成功
-				if($_POST['user'] == 'student'){
-					$sno = $_POST['no'];
-					session_start();
-					$_SESSION['student'] = $sno;
-					//跳转
-					$this->jump('index.php?p=home&c=student&a=student_home');
-				}
-				if($_POST['user'] == 'teacher'){
-					$tno = $_POST['no'];
-					session_start();
-					$_SESSION['teacher'] = $tno;
-					//跳转
-					$this->jump('index.php?p=home&c=teacher&a=teacher_home');
-				}
-				
+				echo "<script>alert('验证码输入不正确');location.href='index.php?p=home';</script>";				
 			}else{
-				//登录失败
-				die('登录失败，用户名或密码错误。');
-			}
-			
-		
+				//实例化student模型
+				$platformModel = new platformModel();
+				//调用验证方法
+				if($platformModel->checkByLogin()){
+					//登录成功
+					if($_POST['user'] == 'student'){
+						$sno = $_POST['no'];
+						session_start();
+						$_SESSION['student'] = $sno;
+						//跳转
+						$this->jump('index.php?p=home&c=student&a=student_home');
+					}
+					if($_POST['user'] == 'teacher'){
+						$tno = $_POST['no'];
+						session_start();
+						$_SESSION['teacher'] = $tno;
+						//跳转
+						$this->jump('index.php?p=home&c=teacher&a=teacher_home');
+					}
+				
+				}else{
+					//登录失败
+					echo "<script>alert('登录失败，用户名或密码错误');location.href='index.php?p=home';</script>";
+				}			
+			}		
 		}
-		require './application/home/view/user_login.html';
 		//载入视图文件
-//		require('./application/home/view/user_login.html');
+		require './application/home/view/user_login.html';
 	}
 	
 	/**

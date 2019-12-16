@@ -15,20 +15,23 @@ class adminController extends platformController{
 
 			if(!$captcha->checkCode(strtolower($_POST['captcha']))){
 				//验证失败
-				die('输入的验证码不正确。');
-				}
-			//实例化admin模型
-			$adminModel = new adminModel();
-			//调用验证方法
-			if($adminModel->checkByLogin()){
-				//登录成功
-				session_start();
-				$_SESSION['admin'] = 'yes';
-				//跳转
-				$this->jump('index.php?p=admin');
+//				die('输入的验证码不正确。');
+				echo "<script>alert('验证码输入不正确');location.href='index.php?p=admin';</script>";				
 			}else{
-				//登录失败
-				die('登录失败，用户名或密码错误。');
+							//实例化admin模型
+				$adminModel = new adminModel();
+				//调用验证方法
+				if($adminModel->checkByLogin()){
+				//登录成功
+					session_start();
+					$_SESSION['admin'] = 'yes';
+					//跳转
+					$this->jump('index.php?p=admin');
+				}else{
+					//登录失败
+//					die('登录失败，用户名或密码错误。');
+					echo "<script>alert('登录失败，用户名或密码错误。');location.href='index.php?p=admin';</script>";				
+				}				
 			}
 		}
 		//载入视图文件

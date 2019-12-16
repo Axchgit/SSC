@@ -208,11 +208,16 @@ class studentModel extends model{
 	 */
 	public function deleteWorkById(){
 		$id = (int)$_GET['id'];
-		$sql = "delete from `student_work` where id=:id";
-		//通过预处理执行SQL
-		$this->db->execute($sql,array(':id'=>$id),$flag);
-		//返回是否执行成功
-		return $flag;
+		$sql = "select `address` from `student_work` where id=$id";
+		$data = $this->db->fetchRow($sql);
+	
+		if(unlink($data['address'])){
+			$sql = "delete from `student_work` where id=:id";
+			//通过预处理执行SQL
+			$this->db->execute($sql,array(':id'=>$id),$flag);
+			//返回是否执行成功
+			return $flag;
+		}
 	}
 	
 	/**

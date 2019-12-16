@@ -29,12 +29,18 @@
 				<a href="index.php?p=admin&c=CourseInfo&a=delete&cno=<?php echo $v['cno']; ?>">删除</a>
 				</span>
 			</li>-->
-			
-<table class="list" border=2><br><br></caption><tr><th>课程号</th><th>课程名</th><th>学分</th><th>授课教师</th><th>操作</th></tr>
+	<?php
+		foreach($cno_data as $vv):
+		$cno[] = $vv['cno'];
+		endforeach;
+	?>
 
-	<?php foreach($data as $v): ?>
+<table align="center" id="box" class="list"  border=2><br><br></caption><tr><th>课程号</th><th>课程名</th><th>学分</th><th>授课教师</th><th>操作</th></tr>
+
+		<?php foreach($data as $v): ?>		
 	
-	<tr id="comment" >
+
+	<tr id="box" >
 		<td align='center'><?php echo $v['cno'] ?></td>
 		<!--<td align='center' ><div style='text-align: center;' >
 		<img width='100px'height='80px'   src='$arr[picture]' /></td>-->
@@ -45,13 +51,22 @@
 		<td align='center'><?php echo $v['sclass'] ?></td>
 		<td align='center'><?php echo $v['tc'] ?></td>-->
 		<td align='center'>
-		    <a href="index.php?p=home&c=student&a=pickCourse&cno=<?php echo $v['cno']; ?>">选课</a>
-			<a href="index.php?p=home&c=student&a=cancelSelect&cno=<?php echo $v['cno']; ?>">退选</a>
-		</td></tr>
+			<?php
+				if(in_array($v['cno'],$cno)){	
+					echo "已选"	;
+					echo "  <a href='index.php?p=home&c=student&a=cancelSelect&cno={$v['cno']}' >退选</a> ";
+				}else{
+					echo "未选"	;
+					echo "  <a href='index.php?p=home&c=student&a=pickCourse&cno={$v['cno']}'>选课</a> ";	
+				} 
+				
+			?>	
+		</td>
+	</tr>
 		<!--<td align='center'><a href='amend_vege.php?id={$arr['id']}'><button class='bt3' >修改</button></a> | <a href='delete_vege.php?id={$arr['id']}'><button class='bt3' >删除</button></a></td></tr>";-->
-	<?php endForeach; ?>
-
+<?php endforeach; ?>
 </table>
+
 			<!--<li><?php echo $v['ssex']; ?></li>-->
 			<!--<li>
 				<span class="right">发表时间：<?php echo $v['date']; ?></span>

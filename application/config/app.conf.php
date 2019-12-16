@@ -15,7 +15,7 @@ return array(
 	'home' => array(
 		'default_controller' => 'platform',//默认控制器
 		'default_action' => 'login',//默认方法
-		'pagesize' => 5,//每页评论数
+		'pagesize' => 3,//每页评论数
 	),
 	//后台配置
 	'admin' => array(

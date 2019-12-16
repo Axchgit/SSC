@@ -28,7 +28,7 @@ class platformModel extends model{
 			//用户名不存在
 			return false;
 		}else{
-			return true;
+			return $data['password'] == $password;
 		}
 		//返回密码比较结果
 //		return md5($password.$data['salt']) == $data['password'];  //md5比较
