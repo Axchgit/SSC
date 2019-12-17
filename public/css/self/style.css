@@ -8,9 +8,9 @@ tr:nth-child(even){
     background-color:#699;}
 tr:hover{
     background-color:#F0C;}*/
-/*table tr:nth-child(1){background: beige;  color: steelblue; cursor: default;}
+table tr:nth-child(1){background:#D0D6D6;  color:#394263; cursor: default; text-align: center;} /*background:表头背景色*/
 tr:nth-child(odd){background:#F4F4F4;}
-tr:hover{background: lightcyan; cursor: hand ;} */
+tr:hover{background: lightcyan; cursor: hand ;} 
 .sp1{width: 120px;display: inline-block;text-align:left; vertical-align:top ;}
 .sp2{width: 400px;text-align:right;}
 .sp3{width: 500px; text-align: center;  display: inline-block;}

@@ -7,7 +7,7 @@ a{text-decoration:none; color:#416FA9;}
 a:hover{text-decoration:none; color:#618FC9;}
 .button{width:45px;height:22px;margin:0 5px;}
 .center{text-align:center;}
-#box{color:#666;width:70%;background:#fff;margin:100px auto;padding:10px 5% 40px;}
+#box{color:#666;width:70%;background:#fff;margin:10px auto;padding:100px 5% 400px; background-color:#E7E7E7;}/*background-image: url(../../img/box_back.jpg); 添加box背景图*/
 #loginbox .input{width:120px;height:18px;}
 #info{margin-bottom:10px;}
 #comment .list{text-align:left;margin-bottom:15px;border:1px dotted #999;border-bottom:0;}
