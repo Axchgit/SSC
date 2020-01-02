@@ -18,6 +18,19 @@ class studentModel extends model{
   	  $data = $this->db->fetchRow("select count(*) from `Course`");
 	  return $data['count(*)'];
     }
+    /**
+     * 获取已选课程信息总数
+     */
+    public function getCourseNumber(){
+//  	$sno = $_GET['sno'];
+//  	session_start();
+		$sno = $_SESSION['student'];
+    	$sql = "select count(*) 
+    			from student a,course b,score c
+    			where a.sno=c.sno and c.cno=b.cno and a.sno=$sno";
+    	$data = $this->db->fetchRow($sql);
+    	return $data['count(*)'];
+    }
 	/**
 	 * 取得指定学号数据
 	 */
@@ -50,40 +63,43 @@ class studentModel extends model{
     /**
      * 获取已选课程数据
      */
-    public function getCourseBySno(){
+    public function getCourseBySno($limit){
 //  	$sno = $_GET['sno'];
 //  	session_start();
 		$sno = $_SESSION['student'];
     	$sql = "select b.* 
     			from student a,course b,score c
-    			where a.sno=c.sno and c.cno=b.cno and a.sno=$sno";
+    			where a.sno=c.sno and c.cno=b.cno and a.sno=$sno
+    			order by cno limit $limit";
     	$data = $this->db->query($sql);
     	return $data;
     }
     /**
      * 查询课程
      */
-    public function getCourseByCname(){
-	  $cname = $_POST['cname'];
-	  $sql = "select * from `Course` where cname='$cname'";
-	  $data = $this->db->fetchAll($sql);
+    public function getCourseByCname($limit){
+		$cname = $_POST['cname'];
+	  	$sql = "select * from `Course` where cname='$cname'
+	  			order by cno limit $limit";
+	  	$data = $this->db->fetchAll($sql);
 	  //处理换行符
 //	  if($data!=false){
 //		  $data['comment'] = str_replace('<br />','',$data['comment']);
 //		  $data['reply'] = str_replace('<br />','',$data['reply']);
 //	  }
-	  return $data;
+	 	 return $data;
     }
     /**
      * 课程分数
      */
-    public function getCourseScore(){
+    public function getCourseScore($limit){
 //  	$sno = $_GET['sno'];
 //  	session_start();
 		$sno = $_SESSION['student'];
     	$sql = "select b.cno,b.cname,c.grade 
     			from student a,course b,score c
-    			where a.sno=c.sno and c.cno=b.cno and a.sno=$sno";
+    			where a.sno=c.sno and c.cno=b.cno and a.sno=$sno
+    			order by cno limit $limit";
     	$data = $this->db->query($sql);
     	return $data;
     }

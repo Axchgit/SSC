@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>管理员主页</title>  
+    <link rel="stylesheet" href="./public/css/frame/pintuer.css">
+    <link rel="stylesheet" href="./public/css/frame/admin.css">
+    <script src="./public/js/jquery-3.4.1.min.js"></script>  
+    <link rel="icon" href="./public/img/admin.png" type="image/x-icon"/>
+</head>
+
+<body style="background:url(./public/img/back2.jpg); background-repeat:no-repeat; text-align:center; background-size: 100%;">
+
+<div class="header bg-main">
+  <div style="float:left; ;" class="logo margin-big-left fadein-top">
+    <h1><img src="./public/img/admin.png" class="radius-circle rotate-hover" height="50" alt="" />	
+    	<span style="color:goldenrod;text-align: center;font-weight:bold;">学生选课系统</span>
+
+	<span style="color: rgb(114,83,52);">֍</span>
+
+	<span style="color: rgb(69,137,148);font-weight:bold;">管理员主页</span></h1>
+  </div>
+  <div style="float:right; margin-right:5%" class="head-l"> 
+     <a class="button button-little " href="index.php?p=admin&c=admin&a=logout" style="color: white;background-color: #D9534F;"><span class="icon-power-off"></span> 退出登录</a>
+  </div>
+</div>
+<div class="leftnav">
+  <div class="leftnav-title"><strong><span class="icon-tasks"></span>菜单列表</strong>
+  </div>
+
+  <h2 style="background:#759aa0"><font color="white"><span class="icon-cube"></span>课程信息管理 </font></h2>
+  <ul style="display:block ;background:;" >
+  	
+    <li><a href="index.php?p=admin&c=CourseInfo&a=addView" target="right"><span class="icon-caret-right"></span>添加课程</a></li>  
+    <li><a href="index.php?p=admin&c=CourseInfo&a=list" target="right"><span class="icon-caret-right"></span>课程列表</a></li>  
+    <li><a href="index.php?p=admin&c=info&a=selectView&v=course" target="right"><span class="icon-caret-right"></span>查询课程</a></li>  
+
+  </ul>   
+  
+
+  <h2 style="background:#759aa0"><font color="white"><span class="icon-cube"></span>学生信息管理 </font></h2>
+  
+  <ul  style="background:">
+    <li><a href="index.php?p=admin&c=StudentInfo&a=addView" target="right"><span class="icon-caret-right"></span>添加学生信息</a></li>
+    <li><a href="index.php?p=admin&c=StudentInfo&a=list"target="right"><span class="icon-caret-right"></span>学生信息列表</a></li>  
+    <li><a href="index.php?p=admin&c=info&a=selectView&v=student" target="right"><span class="icon-caret-right"></span>学生信息查询</a></li>
+
+  </ul> 
+  
+
+  <h2 style="background:#759aa0"><font color="white"><span class="icon-cube"></span>教师信息管理 </font></h2>
+    
+  <ul  style="background:">
+    <li><a href="index.php?p=admin&c=TeacherInfo&a=addView" target="right"><span class="icon-caret-right"></span>添加教师信息</a></li>
+    <li><a href="index.php?p=admin&c=TeacherInfo&a=list"target="right"><span class="icon-caret-right"></span>教师信息列表</a></li> 
+    <li><a href="index.php?p=admin&c=info&a=selectView&v=teacher" target="right"><span class="icon-caret-right"></span>教师信息查询</a></li>
+    
+  </ul> 
+
+
+  
+
+</div>
+<script type="text/javascript">
+$(function(){
+  $(".leftnav h2").click(function(){
+	  $(this).next().slideToggle(200);	
+	  $(this).toggleClass("on"); 
+  })
+  $(".leftnav ul li a").click(function(){
+	    $("#a_leader_txt").text($(this).text());
+  		$(".leftnav ul li a").removeClass("on");
+		$(this).addClass("on");
+  })
+});
+</script>
+<ul class="bread">
+  <li style="color:lightsteelblue; font-size:15px; font-weight:bold"><?php echo @$_SESSION['admin'] ?></span>&nbsp;&nbsp;<span style="color:#759aa0">欢迎您!</span></li>
+</ul>
+<div class="admin">
+  <iframe scrolling="auto" rameborder="0" src="index.php?p=admin&c=StudentInfo&a=list" name="right" width="100%" height="100%"></iframe>
+</div>
+
+
+</body>
+</html>

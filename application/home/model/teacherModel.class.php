@@ -144,13 +144,25 @@ class teacherModel extends model{
 		}
 	}
 	/*
+	 * 获得学生总数
+	 */
+	public function getStudentNumber(){
+		$tno = $_SESSION['teacher'];
+		$sql = "select count(*)
+    			from student a,course b,score c,teacher t
+    			where a.sno=c.sno and c.cno=b.cno and b.tno=t.tno and t.tno=$tno";
+    	$data = $this->db->fetchRow($sql);
+    	return $data['count(*)'];
+	}
+	/*
 	 * 获得学生列表
 	 */
-	public function getStudentListByTno(){
+	public function getStudentListByTno($limit){
 		$tno = $_SESSION['teacher'];
 		$sql = "select a.*,c.grade,c.cno
     			from student a,course b,score c,teacher t
-    			where a.sno=c.sno and c.cno=b.cno and b.tno=t.tno and t.tno=$tno";
+    			where a.sno=c.sno and c.cno=b.cno and b.tno=t.tno and t.tno=$tno
+    			order by sno limit $limit";
     	$data = $this->db->query($sql);
     	return $data;
 	}
@@ -215,18 +227,24 @@ class teacherModel extends model{
 		return $flag;		
 	}
 	/**
-	 * 课程资料列表
+	 * 课程资料总数
 	 */
-	public function getCourseMaterialList(){
+	public function getCourseMaterialNumber(){
 	
 		$tno = $_SESSION['teacher'];
-		$sql = "select * from `course_material` where tno=$tno";
-		$data = $this->db->fetchAll($sql);
-		
-		
+		$sql = "select count(*) from `course_material` where tno=$tno";
+		$data = $this->db->fetchRow($sql);		
+		return $data['count(*)'];	
+	}
+	/**
+	 * 课程资料列表
+	 */
+	public function getCourseMaterialList($limit){
+	
+		$tno = $_SESSION['teacher'];
+		$sql = "select * from `course_material` where tno=$tno order by id limit $limit";
+		$data = $this->db->fetchAll($sql);		
 		return $data;	
-	
-	
 	}
 	/**
 	 * 删除资料
@@ -258,13 +276,25 @@ class teacherModel extends model{
 //		return $v['address'];	
 //	}
 	/**
+	 * 学生作业总数
+	 */
+	public function getStudentWorkNumber(){
+		$tno = $_SESSION['teacher'];
+		$sql = "select count(*)
+    			from teacher a,course b,student_work c
+    			where a.tno=b.tno and b.cno=c.cno and a.tno=$tno";
+	    $data = $this->db->fetchRow($sql);
+    	return @$data['count(*)'];
+	}
+	/**
 	 * 学生作业列表
 	 */
-	public function getStudentWorkByCno(){
+	public function getStudentWorkByCno($limit){
 		$tno = $_SESSION['teacher'];
 		$sql = "select c.*
     			from teacher a,course b,student_work c
-    			where a.tno=b.tno and b.cno=c.cno and a.tno=$tno";
+    			where a.tno=b.tno and b.cno=c.cno and a.tno=$tno
+    			order by sno limit $limit";
 	    $data = $this->db->query($sql);
     	return $data;
 	}

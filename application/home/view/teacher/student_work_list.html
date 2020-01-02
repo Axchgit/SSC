@@ -4,12 +4,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>教师界面</title>
-<link rel="stylesheet" href="./public/css/admin.css" />
-<link rel="stylesheet" href="./public/css/style.css" />
+<link rel="stylesheet" href="./public/css/self/admin_self.css" />
+<link rel="stylesheet" href="./public/css/self/style.css" />
 </head>
 <body>
 <div id="box">
 	<h1>学生作业</h1>
+	<hr />
 	<!--<div id="info">欢迎您：admin <a href="index.php?p=admin&c=admin&a=logout">退出</a></div>-->
 	<div id="comment">
 	
@@ -21,7 +22,7 @@
 				</span>
 			</li>-->
 			
-<table class="list" border=2><br><br></caption><tr><th>作业ID</th><th>作业名</th><th>学号</th><th>学生姓名</th><th>课程号</th><th>上传时间</th><th>分数</th><th>操作</th></tr>
+<table id="box1" class="list" border=2><br><br></caption><tr><th>作业ID</th><th>作业名</th><th>学号</th><th>学生姓名</th><th>课程号</th><th>上传时间</th><th>分数</th><th>操作</th></tr>
 
 	<?php foreach($data as $v): ?>
 	
@@ -60,9 +61,9 @@
 		<!--</ul>-->
 		
 	</div>
-	<!--<div id="footer">
+	<div id="footer">
 		<?php echo $pageList; ?>
-	</div>-->
+	</div>
 </div>
 </body>
 </html>

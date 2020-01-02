@@ -42,46 +42,9 @@ class studentController extends platformController{
 	/**
 	 * 学生主界面
 	 */
-	function student_homeAction(){
-		require './application/home/view/student/student_home.html';
+	function student_indexAction(){
+		require './application/home/view/student/student_index.html';
 		//header("location:index.php?p=admin");
-	}
-	
-	/**
-	 * 学生导航界面
-	 */
-		 
-	function student_menuAction(){
-		require './application/home/view/student/student_menu.html';
-		//header("location:index.php?p=admin");
-	}
-		
-	/**
-	 * 学生信息界面
-	 */	
-	function student_infoAction(){
-		require './application/home/view/student/student_info.html';
-		//header("location:index.php?p=admin");
-	}
-	
-	
-	
-	/**
-	 * 学生信息
-	 */
-	public function infoAction(){
-		//实例化student模型
-		$studentModel = new studentModel();
-		//取得留言总数
-		$num = $studentModel->getNumber();
-		//实例化分页类
-		$page = new page($num,$GLOBALS['config'][PLATFORM]['pagesize']);
-		//取得所有留言数据
-		$data = $studentModel->getAll($page->getLimit());
-		//取得分页导航链接
-		$pageList = $page->getPageList();
-		//载入视图文件
-		require './application/home/view/student/student_home.html';
 	}
 	/**
 	 * 已选课程
@@ -89,11 +52,14 @@ class studentController extends platformController{
 	public function selectedCourseAction(){
 		$studentModel = new studentModel();
 		
-		$data = $studentModel->getCourseBySno();
+
 		//取得总数
-		$num = $studentModel->getNumber();
+		$num = $studentModel->getCourseNumber();
 		//实例化分页类
 		$page = new page($num,$GLOBALS['config'][PLATFORM]['pagesize']);
+		//取得所有所有已选课程数据
+		$data = $studentModel->getCourseBySno($page->getLimit());
+		
 		//取得分页导航链接	
 		$pageList = $page->getPageList();
 		require './application/home/view/student/student_selected_course.html';
@@ -113,7 +79,7 @@ class studentController extends platformController{
 		//取得分页导航链接
 		$pageList = $page->getPageList();
 		//获取已选课程号
-		$cno_data = $studentModel->getCourseScore();
+		$cno_data = $studentModel->getCourseScore($page->getLimit());
 		//载入视图文件
 		require './application/home/view/student/course_list.html';
 	}
@@ -126,14 +92,15 @@ class studentController extends platformController{
 		if(!empty($_POST)){
 			$studentModel = new studentModel();
 		
-			$num = $studentModel->getNumber();
+			$num = '1';
 			//实例化分页类
 			$page = new page($num,$GLOBALS['config'][PLATFORM]['pagesize']);
 			//取得分页导航链接
 			$pageList = $page->getPageList();
 		
-			$data = $studentModel->getCourseByCname();
-		
+			$data = $studentModel->getCourseByCname($page->getLimit());
+			
+			$cno_data = $studentModel->getCourseScore($page->getLimit());	
 		
 			require './application/home/view/student/course_list.html';
 		
@@ -149,11 +116,13 @@ class studentController extends platformController{
 	public function courseScoreAction(){
 		$studentModel = new studentModel();
 		
-		$data = $studentModel->getCourseScore();
+
 		//取得总数
-		$num = $studentModel->getNumber();
+		$num = $studentModel->getCourseNumber();
 		//实例化分页类
 		$page = new page($num,$GLOBALS['config'][PLATFORM]['pagesize']);
+		$data = $studentModel->getCourseScore($page->getLimit());
+		
 		//取得分页导航链接	
 		$pageList = $page->getPageList();
 		require './application/home/view/student/course_score.html';
@@ -210,12 +179,15 @@ class studentController extends platformController{
 		
 			if($oldpass == $v['password'] && $newpass == $newpasstwice){		
 				$pass = $studentModel->updatePassword();		
-			}		
+			}else{
+				echo "<script>alert('输入错误，请核对后重新输入');location.href='index.php?p=home&c=student&a=updatePassword';</script>";
+				
+			}	
 //			$studentModel->updatePassword();
 			if($pass){
 				echo "<script>alert('修改成功');location.href='index.php?p=home&c=student&a=studentInfo';</script>";
 			}else{
-				echo "<script>alert('修改失败或数据库故障');location.href='index.php?p=home&c=student&a=studentInfo';</script>";
+				echo "<script>alert('修改失败或数据库故障');location.href='index.php?p=home&c=student&a=updatePassword';</script>";
 			}				
 		}
 		require './application/home/view/student/student_update_password.html';		
@@ -279,6 +251,20 @@ class studentController extends platformController{
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 测试
+	 */
+	public function testAction(){
+
+		require './application/home/view/student/student_index.html';	
+	}
 	
 	
 

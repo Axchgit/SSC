@@ -36,14 +36,14 @@ class platformController{
 						session_start();
 						$_SESSION['student'] = $sno;
 						//跳转
-						$this->jump('index.php?p=home&c=student&a=student_home');
+						$this->jump('index.php?p=home&c=student&a=student_index');
 					}
 					if($_POST['user'] == 'teacher'){
 						$tno = $_POST['no'];
 						session_start();
 						$_SESSION['teacher'] = $tno;
 						//跳转
-						$this->jump('index.php?p=home&c=teacher&a=teacher_home');
+						$this->jump('index.php?p=home&c=teacher&a=teacher_index');
 					}
 				
 				}else{

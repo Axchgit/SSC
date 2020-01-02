@@ -1,7 +1,7 @@
 <?php
 			
 	foreach($cno_data as $vv):
-	$cno[] = $vv['cno'];//		$arr = $vv['cno'];
+	$cno[] = $vv['cno'];
 	endforeach;
 
 

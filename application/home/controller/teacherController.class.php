@@ -25,28 +25,10 @@ class teacherController extends platformController{
 	/**
 	 * 教师主界面
 	 */
-	function teacher_homeAction(){
-		require './application/home/view/teacher/teacher_home.html';
+	function teacher_indexAction(){
+		require './application/home/view/teacher/teacher_index.html';
 		//header("location:index.php?p=admin");
 	}
-	
-	/**
-	 * 教师菜单界面
-	 */
-		 
-	function teacher_menuAction(){
-		require './application/home/view/teacher/teacher_menu.html';
-		//header("location:index.php?p=admin");
-	}
-		
-	/**
-	 * 教师信息界面
-	 */	
-//	function teacher_infoAction(){
-//		require './application/home/view/teacher/teacher_info.html';
-//		//header("location:index.php?p=admin");
-//	}
-	
 	
 	
 	/**
@@ -109,13 +91,16 @@ class teacherController extends platformController{
 					
 			if($oldpass == $v['password'] && $newpass == $newpasstwice){		
 				$pass = $teacherModel->updatePassword($newpass);		
+			}else{
+				echo "<script>alert('输入错误，请核对后重新输入');location.href='index.php?p=home&c=teacher&a=updatePassword';</script>";
+				
 			}
 		
 //			$teacherModel->updatePassword();
 			if($pass){
 				echo "<script>alert('修改成功');location.href='index.php?p=home&c=teacher&a=teacherInfo';</script>";
 			}else{
-				echo "<script>alert('修改失败或数据库故障');location.href='index.php?p=home&c=teacher&a=teacherInfo';</script>";
+				echo "<script>alert('修改失败或数据库故障');location.href='index.php?p=home&c=teacher&a=updatePassword';</script>";
 			}		
 			
 		}
@@ -169,8 +154,19 @@ class teacherController extends platformController{
 	 * 学生列表
 	 */
 	public function studentListAction(){
+		//实例化teacher模型
 		$teacherModel = new teacherModel();
-		$data = $teacherModel->getStudentListByTno();
+		//取得留言总数
+		$num = $teacherModel->getStudentNumber();
+		//实例化分页类
+		$page = new page($num,$GLOBALS['config'][PLATFORM]['pagesize']);
+		//取得所有留言数据
+		$data = $teacherModel->getStudentListByTno($page->getLimit());
+		
+		//取得分页导航链接
+		$pageList = $page->getPageList();
+		
+
 //		foreach($data as $v);
 		
 //		echo $data['grade'];
@@ -219,9 +215,20 @@ class teacherController extends platformController{
 	 * 课程资料列表
 	 */
 	public function courseMaterialListAction(){
-	
+		
+				//实例化teacher模型
 		$teacherModel = new teacherModel();
-		$data = $teacherModel->getCourseMaterialList();
+		//取得留言总数
+		$num = $teacherModel->getCourseMaterialNumber();
+		//实例化分页类
+		$page = new page($num,$GLOBALS['config'][PLATFORM]['pagesize']);
+		//取得所有留言数据
+		$data = $teacherModel->getCourseMaterialList($page->getLimit());
+		
+		//取得分页导航链接
+		$pageList = $page->getPageList();
+		
+		
 		require './application/home/view/teacher/teacher_Material_list.html';		
 	
 	}
@@ -256,11 +263,24 @@ class teacherController extends platformController{
 				
 	}
 	/**
-	 * 学生上传作业
+	 * 学生作业列表
 	 */
 	public function studentWorkListAction(){
+		//实例化teacher模型
 		$teacherModel = new teacherModel();
-		$data = $teacherModel->getStudentWorkByCno();
+		//取得留言总数
+		$num = $teacherModel->getStudentWorkNumber();
+		//实例化分页类
+		$page = new page($num,$GLOBALS['config'][PLATFORM]['pagesize']);
+		//取得所有留言数据
+		$data = $teacherModel->getStudentWorkByCno($page->getLimit());
+		
+
+		
+		//取得分页导航链接
+		$pageList = $page->getPageList();
+	
+
 		require './application/home/view/teacher/student_work_list.html';		
 		
 	

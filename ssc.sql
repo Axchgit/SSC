@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： 127.0.0.1:3306
--- 生成日期： 2019-12-16 08:47:51
+-- 生成日期： 2020-01-02 09:45:00
 -- 服务器版本： 5.7.24
 -- PHP 版本： 7.3.1
 
@@ -68,8 +68,7 @@ INSERT INTO `course` (`cno`, `cname`, `credit`, `tno`) VALUES
 ('1012', '计算机网络', 3, NULL),
 ('4002', '数字电路', 3, '400007'),
 ('8001', '高等数学', 4, '800014'),
-('1201', '英语', 4, '120036'),
-('1', '计算机', 3, '1');
+('1201', '英语', 4, '120036');
 
 -- --------------------------------------------------------
 
@@ -80,13 +79,23 @@ INSERT INTO `course` (`cno`, `cname`, `credit`, `tno`) VALUES
 DROP TABLE IF EXISTS `course_material`;
 CREATE TABLE IF NOT EXISTS `course_material` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cno` int(11) NOT NULL,
+  `cno` int(11) DEFAULT NULL,
   `tno` int(11) NOT NULL,
-  `mname` varchar(20) NOT NULL,
-  `address` varchar(100) NOT NULL,
-  `uploaddate` datetime NOT NULL,
+  `mname` varchar(20) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `uploaddate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `course_material`
+--
+
+INSERT INTO `course_material` (`id`, `cno`, `tno`, `mname`, `address`, `uploaddate`) VALUES
+(20, 1004, 100001, '11', './public/course_material/php之进步.docx', '2020-01-02 09:29:53'),
+(21, 1004, 100001, '11', './public/course_material/php之进步.docx', '2020-01-02 09:30:52'),
+(22, 1004, 100001, '11', './public/course_material/', '2020-01-02 09:30:59'),
+(23, 1004, 100001, '113', './public/course_material/', '2020-01-02 09:31:06');
 
 -- --------------------------------------------------------
 
@@ -107,8 +116,8 @@ CREATE TABLE IF NOT EXISTS `score` (
 --
 
 INSERT INTO `score` (`sno`, `cno`, `grade`) VALUES
-('121001', '1004', 89),
-('121002', '1004', 89),
+('121001', '1004', NULL),
+('121002', '1004', 9),
 ('121004', '1004', 82),
 ('124001', '4002', 94),
 ('124002', '4002', 74),
@@ -119,11 +128,16 @@ INSERT INTO `score` (`sno`, `cno`, `grade`) VALUES
 ('124001', '8001', 95),
 ('124002', '8001', 73),
 ('124003', '8001', 86),
+('121001', '1201', NULL),
 ('121002', '1201', 87),
 ('121004', '1201', 76),
 ('124001', '1201', 92),
 ('124002', '1201', NULL),
-('124003', '1201', 86);
+('124003', '1201', 86),
+('121001', '4002', NULL),
+('121001', '1012', NULL),
+('121008', '1004', NULL),
+('124001', '1004', NULL);
 
 -- --------------------------------------------------------
 
@@ -165,15 +179,29 @@ INSERT INTO `student` (`sno`, `password`, `sname`, `ssex`, `sbirthday`, `special
 DROP TABLE IF EXISTS `student_work`;
 CREATE TABLE IF NOT EXISTS `student_work` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `wname` varchar(20) NOT NULL,
-  `sno` int(11) NOT NULL,
-  `sname` varchar(10) NOT NULL,
+  `wname` varchar(20) DEFAULT NULL,
+  `sno` int(11) DEFAULT NULL,
+  `sname` varchar(10) DEFAULT NULL,
   `cno` int(11) NOT NULL,
-  `address` varchar(50) NOT NULL,
-  `uploaddate` datetime NOT NULL,
+  `address` varchar(50) DEFAULT NULL,
+  `uploaddate` datetime DEFAULT NULL,
   `score` int(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `student_work`
+--
+
+INSERT INTO `student_work` (`id`, `wname`, `sno`, `sname`, `cno`, `address`, `uploaddate`, `score`) VALUES
+(7, NULL, NULL, NULL, 1004, NULL, NULL, NULL),
+(8, NULL, NULL, NULL, 1004, NULL, NULL, NULL),
+(9, NULL, NULL, NULL, 1004, NULL, NULL, NULL),
+(10, NULL, NULL, NULL, 1004, NULL, NULL, NULL),
+(11, NULL, NULL, NULL, 1004, NULL, NULL, NULL),
+(12, NULL, NULL, NULL, 1004, NULL, NULL, NULL),
+(13, '1111', 121001, '刘鹏翔', 1004, './public/student_work/php之进步.docx', '2020-01-02 09:16:55', NULL),
+(14, '111', 121001, '刘鹏翔', 1004, './public/student_work/', '2020-01-02 09:17:27', NULL);
 
 -- --------------------------------------------------------
 
@@ -219,14 +247,18 @@ CREATE TABLE IF NOT EXISTS `teacher_work` (
   `address` varchar(50) NOT NULL,
   `uploaddate` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `teacher_work`
 --
 
 INSERT INTO `teacher_work` (`id`, `wname`, `cno`, `tno`, `address`, `uploaddate`) VALUES
-(11, '11', 1004, 100001, './public/teacher_work/PHPToDo.txt', '2019-12-15 08:42:17');
+(14, '1111', 1004, 100001, './public/teacher_work/', '2020-01-02 09:44:12'),
+(12, '11', 1004, 100001, './public/teacher_work/文档 2.docx', '2019-12-18 07:49:55'),
+(13, '111', 1004, 100001, './public/teacher_work/', '2020-01-02 09:44:04'),
+(15, '11', 1004, 100001, './public/teacher_work/', '2020-01-02 09:44:18'),
+(16, '11', 1004, 100001, './public/teacher_work/', '2020-01-02 09:44:25');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

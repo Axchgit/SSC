@@ -24,7 +24,7 @@ class adminController extends platformController{
 				if($adminModel->checkByLogin()){
 				//登录成功
 					session_start();
-					$_SESSION['admin'] = 'yes';
+					$_SESSION['admin'] = 'admin';
 					//跳转
 					$this->jump('index.php?p=admin');
 				}else{

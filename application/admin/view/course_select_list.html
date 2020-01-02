@@ -13,12 +13,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>课程视图</title>
-<link rel="stylesheet" href="./public/css/admin.css" />
-<link rel="stylesheet" href="./public/css/style.css" />
+<link rel="stylesheet" href="./public/css/self/admin_self.css" />
+<link rel="stylesheet" href="./public/css/self/style.css" />
 </head>
 <body>
 <div id="box">
 	<h1>课程信息列表</h1>
+	<hr />
 	<!--<div id="info">欢迎您：admin <a href="index.php?p=admin&c=admin&a=logout">退出</a></div>-->
 	<div id="comment">
 	
@@ -30,7 +31,7 @@
 				</span>
 			</li>-->
 			
-<table class="list" border=2><br><br></caption><tr><th>课程号</th><th>课程名</th><th>学分</th><th>授课教师</th><th>操作</th></tr>
+<table id="box1" class="list" border=2><br><br></caption><tr><th>课程号</th><th>课程名</th><th>学分</th><th>授课教师</th><th>操作</th></tr>
 	<?php foreach($data as $vv): ?>
 	
 	
@@ -45,8 +46,8 @@
 		<td align='center'><?php echo $vv['sclass'] ?></td>
 		<td align='center'><?php echo $vv['tc'] ?></td>-->
 		<td align='center'>
-		    <a href="index.php?p=admin&c=StudentInfo&a=updateView&cno=<?php echo $vv['cno']; ?>">修改</a>
-			<a href="index.php?p=admin&c=StudentInfo&a=delete&cno=<?php echo $vv['cno']; ?>" onclick="if(confirm('确实要删除吗？')) return true;else return false;">删除</a>
+		    <a href="index.php?p=admin&c=CourseInfo&a=updateView&cno=<?php echo $vv['cno']; ?>">修改</a>
+			<a href="index.php?p=admin&c=courseInfo&a=delete&cno=<?php echo $vv['cno']; ?>" onclick="if(confirm('确实要删除吗？')) return true;else return false;">删除</a>
 		</td></tr>
 		<!--<td align='center'><a href='amend_vege.php?id={$arr['id']}'><button class='bt3' >修改</button></a> | <a href='delete_vege.php?id={$arr['id']}'><button class='bt3' >删除</button></a></td></tr>";-->
 	<?php endForeach; ?>

@@ -21,8 +21,8 @@ class StudentInfoController extends platformController{
 		require './application/admin/view/StudentInfo_list.html';
 	}
 	
-	function admin_homeAction(){
-			require './application/admin/view/admin_home.html';
+	function admin_indexAction(){
+			require './application/admin/view/admin_index.html';
 			//header("location:index.php?p=admin");
 	}
 		

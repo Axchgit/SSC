@@ -20,7 +20,7 @@ return array(
 	//后台配置
 	'admin' => array(
 		'default_controller' => 'StudentInfo',//默认控制器
-		'default_action' => 'admin_home',//默认方法 //登录成功后默认页面
+		'default_action' => 'admin_index',//默认方法 //登录成功后默认页面
 		'pagesize' => 5,//每页评论数
 	)
 );
