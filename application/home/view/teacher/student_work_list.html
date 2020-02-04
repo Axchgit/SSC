@@ -44,21 +44,15 @@
 		
 		
 		<td align='center'>
-		    <a href="<?php echo $v['address'] ?>">下载</a>
+		    <a href="<?php echo $v['address'] ?>"><button class='bt3'>下载</button></a>&nbsp;&nbsp;&nbsp;
 		
-		    <a href="index.php?p=home&c=teacher&a=studentWorkMark&id=<?php echo $v['id']; ?>">评分</a>
+		    <a href="index.php?p=home&c=teacher&a=studentWorkMark&id=<?php echo $v['id']; ?>"><button class='bt3'>评分</button></a>
 			<!--<a href="index.php?p=home&c=student&a=cancelSelect&cno=<?php echo $v['cno']; ?>">退选</a>-->
 		</td></tr>
 		<!--<td align='center'><a href='amend_vege.php?id={$arr['id']}'><button class='bt3' >修改</button></a> | <a href='delete_vege.php?id={$arr['id']}'><button class='bt3' >删除</button></a></td></tr>";-->
 	<?php endForeach; ?>
 
 </table>
-			<!--<li><?php echo $v['ssex']; ?></li>-->
-			<!--<li>
-				<span class="right">发表时间：<?php echo $v['date']; ?></span>
-				管理员回复：<br /><?php echo $v['reply']; ?>
-			</li>-->
-		<!--</ul>-->
 		
 	</div>
 	<div id="footer">

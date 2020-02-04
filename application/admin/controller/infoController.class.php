@@ -1,10 +1,10 @@
 <?php
 /**
- * 留言模块控制器类
+ * 查询控制器类
  */
 class infoController extends platformController{
 	/**
-	 * 留言列表
+	 * 信息列表
 	 */
 	public function listAction(){
 		//实例化comment模型
@@ -69,7 +69,7 @@ class infoController extends platformController{
 		if(empty($_POST)){
 			return false;
 		}
-		//实例化comment模型
+		//实例化StudentInfo模型
 		$StudentInfoModel = new StudentInfoModel();
 		//调用insert方法
 		$pass = $StudentInfoModel->save();

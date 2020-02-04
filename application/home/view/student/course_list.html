@@ -31,12 +31,16 @@
 				</span>
 			</li>-->
 	<?php
-		foreach($cno_data as $vv):
-		$cno[] = $vv['cno'];
-		endforeach;
+		if(isset($cno_data)){
+			foreach($cno_data as $vv):
+			@$cno[] = $vv['cno'];
+			endforeach;
+		}else{
+			@$cno[] = '';
+		}
 	?>
 
-<table align="center" id="box1" class="list"  border=2><br><br></caption><tr ><th>课程号</th><th>课程名</th><th>学分</th><th>授课教师</th><th>操作</th></tr>
+<table align="center" id="box1" class="list"  border=2><br><br></caption><tr ><th>课程号</th><th>课程名</th><th>学分</th><th>授课教师</th><th>状态</th><th>操作</th></tr>
 
 		<?php foreach($data as $v): ?>		
 	
@@ -51,18 +55,49 @@
 		<!--<td align='center'><?php echo $v['speciality'] ?></td>
 		<td align='center'><?php echo $v['sclass'] ?></td>
 		<td align='center'><?php echo $v['tc'] ?></td>-->
-		<td align='center'>
+		
+			
 			<?php
-				if(in_array($v['cno'],$cno)){	
-					echo "已选"	;
-					echo "  <a href='index.php?p=home&c=student&a=cancelSelect&cno={$v['cno']}' >退选</a> ";
+    	 	if(@$cno != null){
+				
+				if(in_array($v['cno'],@$cno)){					
+			?>
+					<td align='center'>
+			<?php
+					echo "<font color=crimson>已选</font>"	;
+			?>
+					</td>
+					<td align='center'>
+			<?php
+					echo "  <a href='index.php?p=home&c=student&a=cancelSelect&cno={$v['cno']}' ><button class='bt6'>退选</button></a> ";
+			?>
+					</td>
+			<?php
 				}else{
-					echo "未选"	;
-					echo "  <a href='index.php?p=home&c=student&a=pickCourse&cno={$v['cno']}'>选课</a> ";	
-				} 
+			?>
+					<td align='center'>
+			<?php
+					echo "<font color=#0099CC>未选</font>"	;
+			?>
+					</td>
+					<td align='center'>
+			<?php
+					echo "  <a href='index.php?p=home&c=student&a=pickCourse&cno={$v['cno']}'><button class='bt3'>选课</button></a> ";	
+				}
+			}else{
 				
 			?>	
-		</td>
+					<td align='center'>
+			<?php
+					echo "<font color=#0099CC>未选</font>"	;
+			?>
+					</td>
+					<td align='center'>
+			<?php
+					echo "  <a href='index.php?p=home&c=student&a=pickCourse&cno={$v['cno']}'><button class='bt3'>选课</button></a> ";	
+				}
+			?>
+					</td>
 	</tr>
 		<!--<td align='center'><a href='amend_vege.php?id={$arr['id']}'><button class='bt3' >修改</button></a> | <a href='delete_vege.php?id={$arr['id']}'><button class='bt3' >删除</button></a></td></tr>";-->
 <?php endforeach; ?>

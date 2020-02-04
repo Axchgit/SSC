@@ -43,6 +43,11 @@ class studentController extends platformController{
 	 * 学生主界面
 	 */
 	function student_indexAction(){
+		$studentModel = new studentModel();
+		//取得数据
+		$data = $studentModel->getBySno();
+		foreach($data as $v);
+		$sname = $v['sname'];
 		require './application/home/view/student/student_index.html';
 		//header("location:index.php?p=admin");
 	}
@@ -74,12 +79,12 @@ class studentController extends platformController{
 		$num = $studentModel->getNumber();
 		//实例化分页类
 		$page = new page($num,$GLOBALS['config'][PLATFORM]['pagesize']);
-		//取得所有留言数据
+		//取得所有课程数据
 		$data = $studentModel->getAll($page->getLimit());
 		//取得分页导航链接
 		$pageList = $page->getPageList();
 		//获取已选课程号
-		$cno_data = $studentModel->getCourseScore($page->getLimit());
+		$cno_data = $studentModel->getCourseBySnoTwo();
 		//载入视图文件
 		require './application/home/view/student/course_list.html';
 	}
@@ -100,7 +105,7 @@ class studentController extends platformController{
 		
 			$data = $studentModel->getCourseByCname($page->getLimit());
 			
-			$cno_data = $studentModel->getCourseScore($page->getLimit());	
+			$cno_data = $studentModel->getCourseBySnoTwo();	
 		
 			require './application/home/view/student/course_list.html';
 		

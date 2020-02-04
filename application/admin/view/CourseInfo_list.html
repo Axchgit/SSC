@@ -20,45 +20,23 @@
 <div id="box">
 	<h1>课程列表</h1>
 	<hr />
-	<!--<div id="info">欢迎您：admin <a href="index.php?p=admin&c=admin&a=logout">退出</a></div>-->
 	<div id="comment">
-	
-		<!--<ul class="list">
-			<li>作者：<?php echo $v['sname'] ?> 邮箱：<?php echo $v['cno']; ?> IP：<?php echo $v['tc']; ?>
-				<span class="right">
-				<a href="index.php?p=admin&c=CourseInfo&a=updateView&cno=<?php echo $v['cno']; ?>">修改</a>
-				<a href="index.php?p=admin&c=CourseInfo&a=delete&cno=<?php echo $v['cno']; ?>">删除</a>
-				</span>
-			</li>-->
-			
 <table id="box1" class="list" border=2><br><br></caption><tr><th>课程号</th><th>课程名</th><th>学分</th><th>授课教师</th><th>操作</th></tr>
 
 	<?php foreach($data as $v): ?>
 	
 	<tr id="comment" >
 		<td align='center'><?php echo $v['cno'] ?></td>
-		<!--<td align='center' ><div style='text-align: center;' >
-		<img width='100px'height='80px'   src='$arr[picture]' /></td>-->
 		<td align='center'><?php echo $v['cname'] ?></td>
 		<td align='center'><?php echo $v['credit'] ?></td>
 		<td align='center'><?php echo $v['tno'] ?></td>
-		<!--<td align='center'><?php echo $v['speciality'] ?></td>
-		<td align='center'><?php echo $v['sclass'] ?></td>
-		<td align='center'><?php echo $v['tc'] ?></td>-->
 		<td align='center'>
-		    <a href="index.php?p=admin&c=CourseInfo&a=updateView&cno=<?php echo $v['cno']; ?>">修改</a>
-			<a href="index.php?p=admin&c=CourseInfo&a=delete&cno=<?php echo $v['cno']; ?>" onclick="if(confirm('确实要删除吗？')) return true;else return false;">删除</a>
+		    <a href="index.php?p=admin&c=CourseInfo&a=updateView&cno=<?php echo $v['cno']; ?>"><button class='bt3'>修改</button></a>&nbsp;&nbsp;&nbsp;
+			<a href="index.php?p=admin&c=CourseInfo&a=delete&cno=<?php echo $v['cno']; ?>" onclick="return confirm('确认要删除吗？')"><button class='bt6'>删除</button></a>
 		</td></tr>
-		<!--<td align='center'><a href='amend_vege.php?id={$arr['id']}'><button class='bt3' >修改</button></a> | <a href='delete_vege.php?id={$arr['id']}'><button class='bt3' >删除</button></a></td></tr>";-->
 	<?php endForeach; ?>
 
 </table>
-			<!--<li><?php echo $v['ssex']; ?></li>-->
-			<!--<li>
-				<span class="right">发表时间：<?php echo $v['date']; ?></span>
-				管理员回复：<br /><?php echo $v['reply']; ?>
-			</li>-->
-		<!--</ul>-->
 		
 	</div>
 	<div id="footer">

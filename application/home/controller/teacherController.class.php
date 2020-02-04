@@ -26,6 +26,12 @@ class teacherController extends platformController{
 	 * 教师主界面
 	 */
 	function teacher_indexAction(){
+		//实例化teacher模型
+		$teacherModel = new teacherModel();
+		//取得个人
+		$data = $teacherModel->getByTno();
+		foreach($data as $v);
+		$tname = $v['tname'];
 		require './application/home/view/teacher/teacher_index.html';
 		//header("location:index.php?p=admin");
 	}

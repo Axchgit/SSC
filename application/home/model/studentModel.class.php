@@ -59,6 +59,19 @@ class studentModel extends model{
 //	  }
 	  return $data;
     }
+    /**
+     * 获取已选课程总数
+     */
+    public function getCourseBySnoTwo(){
+//  	$sno = $_GET['sno'];
+//  	session_start();
+		$sno = $_SESSION['student'];
+    	$sql = "select b.* 
+    			from student a,course b,score c
+    			where a.sno=c.sno and c.cno=b.cno and a.sno=$sno";
+    	$data = $this->db->query($sql);
+    	return $data;
+    }
 
     /**
      * 获取已选课程数据
